@@ -1,0 +1,19 @@
+{
+    "require": {
+        "twig/twig": "^3.0",
+        "altorouter/altorouter": "^2.0",
+        "catfan/medoo": "^2.1",
+        "symfony/var-dumper": "^6.0",
+        "cocur/slugify": "^4.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "oat-sa/composer-npm-bridge": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/"
+        }
+    }
+}

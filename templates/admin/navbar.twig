@@ -1,0 +1,42 @@
+<nav class="bg-white w-full z-50 top-0 start-0 border-b border-gray-200 ">
+  <div class="max-w-[1310px] flex flex-wrap items-center justify-between mx-auto md:px-0 p-4">
+  <a href="/" class="flex flex-col items-center space-x-3 rtl:space-x-reverse">
+      <img src="/media/images/thingify_logo.png" class="h-[38px] w-[150px]" alt="thingify Logo">
+      <p class="text-xs">ADMIN PANEL</p>
+  </a>
+  <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      
+      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Otevřít hlavní menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+    </button>
+  </div>
+  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+    <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white ">
+      <li class="nav-item">
+        <a href="/admin" class="block py-2 px-3 text-gray-900 rounded  md:p-0" aria-current="page">Objednávky</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/invoices" class="block py-2 px-3 text-gray-900 rounded  md:p-0 ">Faktury</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/products" class="block py-2 px-3 text-gray-900 rounded  md:p-0 ">Produkty</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/raw_db/shop_category" class="block py-2 px-3 text-gray-900 rounded  md:p-0 ">Kategorie</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/pages" class="block py-2 px-3 text-gray-900 rounded  md:p-0 ">Stránky</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/carriers" class="block py-2 px-3 text-gray-900 rounded  md:p-0 ">Doprava a platba</a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin/raw_db/config" class="block py-2 px-3 text-gray-900 rounded  md:p-0 ">Nastavení</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
