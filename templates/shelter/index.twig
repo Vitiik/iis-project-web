@@ -5,6 +5,7 @@
 
 {% block content %}
 
-<h1 class="text-xl">Toto je index</h1>
+
+{% embed 'shelter/partials/animal_card.twig' with {"animal": animal} %}{% endembed %}
 
 {% endblock %}
