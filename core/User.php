@@ -6,23 +6,19 @@ class User{
 
     public static function getById(int $user_id){
         global $db;
-        return $db->get("shop_user","*",["id"=>$user_id]);
+        return $db->get("uzivatel","*",["id"=>$user_id]);
     }
 
-    public static function getUserOrCreateNew($post){
+    public static function getByEmail(string $user_email){
         global $db;
-        $user_id = null;
-        $user = $db->get("shop_user","*",["firstname"=>$post["firstname"],"lastname"=>$post["lastname"],"telephone"=>$post["telephone"],"email"=>$post["email"]]);
-        
-        if($user == null){
-            $db->insert("shop_user",["firstname"=>$post["firstname"],"lastname"=>$post["lastname"],"telephone"=>$post["telephone"],"email"=>$post["email"],"newsletter"=>$post["newsletter"]]);
-            $user_id = $db->id();
-        }else{
-            $user_id = $user["id"];
-            $db->update("shop_user",["newsletter"=>$post["newsletter"]],["id"=>$user_id]);
-        }
+        return $db->get("uzivatel","*",["email"=>$user_email]);
+    }
 
-        return User::getById($user_id);
+    public static function getLoggedInUser(){
+        if(isset($_SESSION["user_email"])){
+            return User::getByEmail($_SESSION["user_email"]);
+        }
+        return null;
     }
 
 }

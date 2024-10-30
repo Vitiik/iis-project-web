@@ -1,0 +1,82 @@
+{% extends "shelter/base.twig" %}
+
+{% block title %}{{product.name}}{% endblock %}
+{% block description %}{{product.description_small}}{% endblock %}
+
+{% block content %}
+
+
+
+<div class="flex flex-col w-full px-2 md:px-32 py-2 md:py-8 gap-16">
+    <div class="flex flex-col md:flex-row w-full gap-8">
+        <h1 class="md:hidden product-detail-name">Jack Russell - Baddy</h1>
+
+        <div class="flex flex-col items-center gap-8 md:w-[32rem]">
+            <a href="javascript:;" onclick="openGallery()"><img class="shadow-md" width="450" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jack_Russell_Terrier_1.jpg/1200px-Jack_Russell_Terrier_1.jpg" alt=""></a>
+            <div class="flex flex-row flex-wrap gap-4 w-full justify-center" id="image-gallery">
+                    <a id="product-image-0" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jack_Russell_Terrier_1.jpg/1200px-Jack_Russell_Terrier_1.jpg" data-pswp-width="1000" data-pswp-height="1000" target="_blank"> <img class="shadow-md" width="96" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jack_Russell_Terrier_1.jpg/1200px-Jack_Russell_Terrier_1.jpg" alt=""> </a>
+            </div>
+        </div>
+        <div class="ml-auto product-detail-info-panel">
+            <h1 class="hidden md:block font-bold text-2xl mb-2">Jack Russell - Baddy</h1>
+            <p class="w-[560px]">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Mauris dictum facilisis augue. Suspendisse sagittis ultrices augue. Quisque tincidunt scelerisque libero. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu, velit. Duis pulvinar. Fusce aliquam vestibulum ipsum. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Fusce wisi. Fusce nibh. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Nunc tincidunt ante vitae massa. Nulla est. Nullam rhoncus aliquam metus. Sed convallis magna eu sem.</p>
+                
+                
+            
+            <hr class="w-full h-px mt-4 bg-slate-200 border-0">
+            <div class="bg-gray-100 p-4 rounded flex flex-col gap-2">
+                <div class="flex flex-row gap-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-gray-800">
+                        <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25ZM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 1 1 6 0h3a.75.75 0 0 0 .75-.75V15Z" />
+                        <path d="M8.25 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0ZM15.75 6.75a.75.75 0 0 0-.75.75v11.25c0 .087.015.17.042.248a3 3 0 0 1 5.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 0 0-3.732-10.104 1.837 1.837 0 0 0-1.47-.725H15.75Z" />
+                        <path d="M19.5 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
+                    </svg>
+
+                    <p class="text-sm font-bold text-gray-800">Pondělí 6.10. u Vás - Balíkovna</p>
+                    <p class="text-sm ml-auto font-bold text-gray-800">od 59 Kč</p>
+                </div>
+
+                <div class="flex flex-row gap-2 items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-gray-800">
+                        <path d="M12 7.5a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Z" />
+                        <path fill-rule="evenodd" d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z" clip-rule="evenodd" />
+                        <path d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z" />
+                    </svg>
+
+                    <p class="text-sm font-bold text-gray-800">Platební brána</p>
+                    <p class="ml-auto text-sm font-bold text-green-600">ZDARMA</p>
+                </div>
+            </div>
+            <hr class="w-full h-px mt-4 bg-slate-200 border-0 mb-4">
+            <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
+                <path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" />
+                </svg>
+                Rezervovat zde
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+
+function openGallery(){
+    window.lightbox.loadAndOpen(0, {
+        gallery: document.querySelector('#image-gallery')
+    });
+}
+
+
+</script>
+
+<script type="module">
+import PhotoSwipeLightbox from '/media/photoswipe/photoswipe-lightbox.esm.js';
+window.lightbox = new PhotoSwipeLightbox({
+  gallery: '#image-gallery',
+  children: 'a',
+  pswpModule: () => import('/media/photoswipe/photoswipe.esm.js')
+});
+window.lightbox.init();
+</script>
+
+{% endblock %}
