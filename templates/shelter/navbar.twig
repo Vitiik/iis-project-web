@@ -1,4 +1,4 @@
-<nav class="bg-white fixed w-full z-50 top-0 start-0 border-b border-gray-200 ">
+<nav class="bg-white fixed w-full z-40 top-0 start-0 border-b border-gray-200 ">
   <div class="max-w-[1310px] flex flex-wrap items-center justify-between mx-auto md:px-0 p-4">
   <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/media/images/logo.png" class="h-[64px] w-[173px]" alt="thingify Logo">
@@ -17,9 +17,10 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
           <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" />
         </svg>
-  
-        {{user.jmeno}} {{user.prijmeni}}
-        
+        <div class="flex flex-col">
+          <p>{{user.jmeno}} {{user.prijmeni}}</p> 
+          <p class="text-gray-400 text-xs mt-[-6px]">uživatel</p>
+        </div>
       </a>
       {% endif %}
       <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">

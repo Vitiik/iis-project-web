@@ -9,8 +9,3 @@ $router->map("GET","/",function(){
 
     echo $twig->render('shelter/index.twig',["user"=>$user]);
 });
-
-$router->map("GET","/zvire",function(){
-    global $twig;
-    echo $twig->render('shelter/animal.twig');
-});

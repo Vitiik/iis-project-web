@@ -4,7 +4,7 @@
     {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Title{% endblock %} | Útulek</title>
+    <title>{% block title %}Title{% endblock %} | Útulek tlapka v nouzi</title>
     <meta name="description" content="{% block description %}{% endblock %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="/media/css/style.css" rel="stylesheet"/>
@@ -42,7 +42,7 @@
             {% endfor %}
         </ol>
         {% endif %}
-        <div class="flex flex-row md:mt-6">
+        <div class="flex flex-col md:mt-6">
             {% block content %}{% endblock %}
         </div>
         

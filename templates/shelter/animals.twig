@@ -1,0 +1,55 @@
+{% extends "shelter/base.twig" %}
+
+{% block title %}Naše zvířata{% endblock %}
+{% block description %}Naše aktuální zvířata v útulku.{% endblock %}
+
+{% block content %}
+
+<div class="flex flex-row mb-2">
+    <button class="ml-auto flex flex-row p-2 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="new-animal-modal" data-modal-toggle="new-animal-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+            <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
+        </svg>
+
+        Přidat zvíře
+    </button>
+</div>
+
+<div>
+    {% embed 'shelter/partials/animal_card.twig' with {"animal": animal} %}{% endembed %}
+</div>
+
+{% embed 'shelter/partials/modal.twig' with {"id": "new-animal", "title":"Přidat nové zvíře"} %}
+    {% block modal_body %}
+    <form class="space-y-4" action="/###" method="POST">
+        <div class="col-span-2 sm:col-span-1">
+            <label for="jmeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jméno zvířete</label>
+            <input type="text" name="jmeno" id="jmeno" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="zivocisny_druh" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Druh zvířete</label>
+            <input type="text" name="zivocisny_druh" id="zivocisny_druh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="plemeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plemeno</label>
+            <input type="text" name="plemeno" id="plemeno" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="pohlavi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pohlaví</label>
+            <input type="text" name="pohlavi" id="pohlavi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="datum_narozeni" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum narození</label>
+            <input type="date" name="datum_narozeni" id="datum_narozeni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+        
+        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Přidat</button>
+    </form>
+    {% endblock %}
+{% endembed %}
+
+{% endblock %}
