@@ -21,7 +21,7 @@ class Animal{
 
     public static function getAnimalById(int $zvire_id){
         global $db;
-        return $db->select("zvire",[
+        return $db->get("zvire",[
             "id",
             "jmeno",
             "zivocisny_druh",

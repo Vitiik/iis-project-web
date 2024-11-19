@@ -16,7 +16,9 @@
 </div>
 
 <div>
-    {% embed 'shelter/partials/animal_card.twig' with {"animal": animal} %}{% endembed %}
+    {% for zvire in zvirata %}
+        {% embed 'shelter/partials/animal_card.twig' with {"zvire": zvire} %}{% endembed %}
+    {% endfor %}
 </div>
 
 {% embed 'shelter/partials/modal.twig' with {"id": "new-animal", "title":"Přidat nové zvíře"} %}

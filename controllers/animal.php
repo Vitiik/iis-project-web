@@ -10,7 +10,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     $hmotnost = Animal::getHmotnostById($id);
 
     // echo "Zvíře:";
-    // dump($zvire);
+    //dump($zvire);
 
     // echo "Fotky:";
     // dump($obrazky);
@@ -19,7 +19,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     // dump(Animal::getOckovaniById($id));
 
     // echo "Hmotnost:";
-    // dump($hmotnost);
+    //dump($hmotnost);
 
     // echo "Měření:";
     // dump(Animal::getAllMereniById($id));
