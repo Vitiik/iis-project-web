@@ -13,7 +13,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     //dump($zvire);
 
     // echo "Fotky:";
-    // dump($obrazky);
+     dump($obrazky);
 
     // echo "Očkování:";
     // dump(Animal::getOckovaniById($id));

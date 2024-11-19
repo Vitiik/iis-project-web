@@ -7,6 +7,16 @@ use Core\BannedIP;
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
 $twig = new \Twig\Environment($loader, []);
 
+$sklonovatRokFilter = new \Twig\TwigFilter('sklonovat_rok', function ($value) {
+    return "5 let";
+});
+$sklonovatMesicFilter = new \Twig\TwigFilter('sklonovar_mesic', function ($value) {
+    return "5 měsíců";
+});
+
+$twig->addFilter($sklonovatRokFilter);
+$twig->addFilter($sklonovatMesicFilter);
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
