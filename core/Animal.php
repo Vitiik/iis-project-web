@@ -50,9 +50,9 @@ class Animal{
         if (!$images) {
             return array(array(
                     "id" => 0,
-                    "url_velka" => "media/images/no-image.jpg",
-                    "url_stredni" => "media/images/no-image.jpg",
-                    "url_mala" => "media/images/no-image.jpg",
+                    "url_velka" => "no-image.jpg",
+                    "url_stredni" => "no-image.jpg",
+                    "url_mala" => "no-image.jpg",
                     "priorita" => 1
                     ));
         }

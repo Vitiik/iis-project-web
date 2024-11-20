@@ -22,7 +22,7 @@ $router->map("GET","/zvirata",function(){
             $zvire['posledni_ockovani'] = NULL;
         }
         if ($zvire['url_mala'] == null) {
-            $zvire['url_mala'] = "media/images/no-image.jpg";
+            $zvire['url_mala'] = "no-image.jpg";
         }
     }
 
