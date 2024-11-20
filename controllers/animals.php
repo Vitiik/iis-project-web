@@ -21,9 +21,12 @@ $router->map("GET","/zvirata",function(){
         if ($nalezeno == 0){
             $zvire['posledni_ockovani'] = NULL;
         }
+        if ($zvire['url_mala'] == null) {
+            $zvire['url_mala'] = "media/images/no-image.jpg";
+        }
     }
 
-    // dump($zvirata);
+    dump($zvirata);
 
     echo $twig->render('shelter/animals.twig',["zvirata"=>$zvirata]);
 });

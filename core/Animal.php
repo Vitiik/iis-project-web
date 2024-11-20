@@ -15,6 +15,7 @@ class Animal{
                 "z.plemeno",
                 "z.pohlavi",
                 "z.datum_narozeni",
+                "z.popis",
                 "fz.url_mala",
             ]);
     }
@@ -36,7 +37,7 @@ class Animal{
 
     public static function getImagesById(int $zvire_id){
         global $db;
-        return $db->select("fotka_zvirete",[
+        $images = $db->select("fotka_zvirete",[
             "id",
             "url_velka",
             "url_stredni",
@@ -46,6 +47,16 @@ class Animal{
             "zvire_id" => $zvire_id,
             "ORDER" => ["priorita" => "DESC"]
         ]);
+        if (!$images) {
+            return array(array(
+                    "id" => 0,
+                    "url_velka" => "media/images/no-image.jpg",
+                    "url_stredni" => "media/images/no-image.jpg",
+                    "url_mala" => "media/images/no-image.jpg",
+                    "priorita" => 1
+                    ));
+        }
+        return $images;
     }
 
     public static function getDateOfLastOckovaniForAllAnimals(){
