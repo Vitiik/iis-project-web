@@ -61,7 +61,7 @@
                     </svg>
                     Rezervovat zde
                 </button>
-                <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2">
+                <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="new-event-modal" data-modal-toggle="new-event-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
                         <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
                     </svg>
@@ -92,5 +92,179 @@ window.lightbox = new PhotoSwipeLightbox({
 });
 window.lightbox.init();
 </script>
+
+{% embed 'shelter/partials/modal.twig' with {"id": "new-event", "title":"Nová událost zvířete"} %}
+    {% block modal_body %}
+    <div class="flex flex-col gap-4">
+    <button data-modal-target="new-prohlidka-modal" data-modal-toggle="new-prohlidka-modal" class="w-full flex flex-row justify-center items-center gap-2 rounded-lg p-4 bg-gray-800 text-white">
+        <svg class="size-6 fill-white" viewBox="-2.5 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.56 10.11v2.046a3.827 3.827 0 1 1-7.655 0v-.45A3.61 3.61 0 0 1 .851 8.141V5.25a1.682 1.682 0 0 1 .763-1.408 1.207 1.207 0 1 1 .48 1.04.571.571 0 0 0-.135.368v2.89a2.5 2.5 0 0 0 5 0V5.25a.57.57 0 0 0-.108-.334 1.208 1.208 0 1 1 .533-1.018 1.681 1.681 0 0 1 .683 1.352v2.89a3.61 3.61 0 0 1-3.054 3.565v.45a2.719 2.719 0 0 0 5.438 0V10.11a2.144 2.144 0 1 1 1.108 0zm.48-2.07a1.035 1.035 0 1 0-1.035 1.035 1.037 1.037 0 0 0 1.036-1.035z"></path></g></svg>
+        Prohlídka
+    </button>
+    <button data-modal-target="new-prodej-modal" data-modal-toggle="new-prodej-modal" class="w-full flex flex-row justify-center items-center gap-2 rounded-lg p-4 bg-gray-800 text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+            <path fill-rule="evenodd" d="M1 4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm12 4a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM4 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm13-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM1.75 14.5a.75.75 0 0 0 0 1.5c4.417 0 8.693.603 12.749 1.73 1.111.309 2.251-.512 2.251-1.696v-.784a.75.75 0 0 0-1.5 0v.784a.272.272 0 0 1-.35.25A49.043 49.043 0 0 0 1.75 14.5Z" clip-rule="evenodd" />
+        </svg>
+        Prodej
+    </button>
+    <button data-modal-target="new-umrti-modal" data-modal-toggle="new-umrti-modal" class="w-full flex flex-row justify-center items-center gap-2 rounded-lg p-4 bg-gray-800 text-white">
+        <svg class="size-6 fill-white" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cross</title> <path d="M5.979 10.974v5.021h7.041v11.99h5.042v-11.99h6.958v-5.021h-6.958v-6.958h-5.042v6.958h-7.041z"></path> </g></svg>
+        Úmrtí
+    </button>
+    </div>
+    {% endblock %}
+{% endembed %}
+
+{% embed 'shelter/partials/modal.twig' with {"id": "new-prohlidka", "title":"Přidat prohlídku zvířete"} %}
+    {% block modal_body %}
+    <form class="space-y-4" action="/prohlidka" method="POST">
+        <input type="text" class="hidden" name="vytvorit" value="1">
+        <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
+
+        <label for="pozadavek_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Je prohlídka na žádost?</label>
+        <select name="pozadavek_id" id="pozadavek_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">    
+            <option selected value="-1">NE</option>
+
+            {% for status in order_statuses %}
+                <option {{ status.id == order.status_id ? "selected" : "" }} value="{{ status.id }}">{{ status.name }}</option>
+            {% endfor %}
+        </select>
+        
+        <div class="col-span-2 sm:col-span-1">
+            <label for="zdravotni_stav" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Zdravotní stav</label>
+            <input type="text" name="zdravotni_stav" id="zdravotni_stav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Popište akutální stav zvířete..." required="">
+        </div>
+
+        <div class="flex items-start">
+            <div class="flex items-center h-5">
+                <input type='hidden' value='0' name='probehlo_ockovani'>
+                <input onclick="showVakcinaInput();" name="probehlo_ockovani" id="probehlo_ockovani" type="checkbox" value="1" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+            </div>
+            <label for="probehlo_ockovani" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Proběhlo očkování zvířete?</label>
+        </div>
+
+        <div class="col-span-2 sm:col-span-1 hidden" id="vakcina-input-holder">
+            <label for="vakcina" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Použitá vakcína</label>
+            <input disabled type="text" name="vakcina" id="vakcina" class="vakcina-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Název použité vakcíny" required="">
+        </div>
+
+        <div class="flex items-start">
+            <div class="flex items-center h-5">
+                <input type='hidden' value='0' name='probehlo_mereni'>
+                <input onclick="showMereniInput();" name="probehlo_mereni" id="probehlo_mereni" type="checkbox" value="1" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+            </div>
+            <label for="probehlo_mereni" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Proběhlo měření zvířete?</label>
+        </div>
+
+        <div class="flex flex-row gap-4 hidden" id="mereni-input-holder">
+        <div class="col-span-2 sm:col-span-1">
+            <label for="vyska" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Výška (cm)</label>
+            <input disabled type="number" name="vyska" id="vyska" class="mereni-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="delka" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Délka (cm)</label>
+            <input disabled type="number" name="delka" id="delka" class="mereni-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="hmotnost" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hmotnost (kg)</label>
+            <input disabled type="text" name="hmotnost" id="hmotnost" class="mereni-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+        </div>
+        
+        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Přidat</button>
+    </form>
+
+    <script>
+        function showVakcinaInput(){
+            var val = $('input[name="probehlo_ockovani"]').is(":checked");
+            if(val == 1){
+                $("#vakcina-input-holder").show();
+
+                $(".vakcina-input").each(function(){
+                    $(this).prop("disabled", false);
+                });
+            }else{
+                $("#vakcina-input-holder").hide();
+                $(".vakcina-input").each(function(){
+                    $(this).prop("disabled", true);
+                });
+            }
+        }
+        function showMereniInput(){
+            var val = $('input[name="probehlo_mereni"]').is(":checked");
+            if(val == 1){
+                $("#mereni-input-holder").show();
+                
+                $(".mereni-input").each(function(){
+                    $(this).prop("disabled", false);
+                });
+            }else{
+                $("#mereni-input-holder").hide();
+
+                $(".mereni-input").each(function(){
+                    $(this).prop("disabled", true);
+                });
+            }
+        }
+    </script>
+
+    {% endblock %}
+{% endembed %}
+
+{% embed 'shelter/partials/modal.twig' with {"id": "new-prodej", "title":"Prodej zvířete"} %}
+    {% block modal_body %}
+    <form class="space-y-4" action="/prodej" method="POST">
+        <input type="text" class="hidden" name="vytvorit" value="1">
+        <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
+        
+        <div class="col-span-2 sm:col-span-1">
+            <label for="jmeno_zakaznika" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celé jméno zákazníka</label>
+            <input type="text" name="jmeno_zakaznika" id="jmeno_zakaznika" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Petr Novák" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="telefon_zakaznika" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefon zákazníka</label>
+            <input type="telephone" name="telefon_zakaznika" id="telefon_zakaznika" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="+420123456789" required="">
+        </div>
+        
+        <div class="col-span-2 sm:col-span-1">
+            <label for="cena" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dohodnutá cena (Kč)</label>
+            <input type="number" name="cena" id="cena" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1234" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="cas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum a čas prodeje</label>
+            <input type="datetime-local" name="cas" id="cas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Vytvořit</button>
+    </form>
+
+    {% endblock %}
+{% endembed %}
+
+
+{% embed 'shelter/partials/modal.twig' with {"id": "new-umrti", "title":"Úmrtí zvířete"} %}
+    {% block modal_body %}
+    <form class="space-y-4" action="/umrti" method="POST">
+        <input type="text" class="hidden" name="vytvorit" value="1">
+        <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
+        
+        <div class="col-span-2 sm:col-span-1">
+            <label for="pricina" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Příčina úmrtí</label>
+            <input type="text" name="pricina" id="pricina" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Stáří..." required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="cas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum a čas úmrtí</label>
+            <input type="datetime-local" name="cas" id="cas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Vytvořit</button>
+    </form>
+
+    {% endblock %}
+{% endembed %}
 
 {% endblock %}

@@ -31,8 +31,14 @@ $router->map("POST","/umrti",function(){
 
 $router->map("POST","/prohlidka",function(){
     global $twig;
-
+    dump($_POST);
     if (isset($_POST["vytvorit"])){
+        if($_POST["pozdavek_id"] == -1) $_POST["pozdavek_id"] = NULL; 
+        if(!isset($_POST["vakcina"])) $_POST["vakcina"] = NULL;
+        if(!isset($_POST["vyska"])) $_POST["vyska"] = NULL;
+        if(!isset($_POST["delka"])) $_POST["delka"] = NULL;
+        if(!isset($_POST["hmotnost"])) $_POST["hmotnost"] = NULL;
+
         Manipulace::createProhlidka($_POST["zdravotni_stav"],$_POST["vakcina"],$_POST["vyska"],$_POST["delka"],$_POST["hmotnost"],$_POST["cas"],$_POST["pozadavek_id"],$_POST["zvire_id"]);
     }
 

@@ -13,16 +13,16 @@ $router->map("GET","/zvire/[i:id]",function($id){
     //dump($zvire);
 
     // echo "Fotky:";
-     dump($obrazky);
+    //dump($obrazky);
 
     // echo "Očkování:";
-    // dump(Animal::getOckovaniById($id));
+    dump(Animal::getOckovaniById($id));
 
     // echo "Hmotnost:";
     //dump($hmotnost);
 
     // echo "Měření:";
-    // dump(Animal::getAllMereniById($id));
+     dump(Animal::getAllMereniById($id));
 
     echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost]);
 });
