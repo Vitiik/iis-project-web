@@ -8,10 +8,22 @@ $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
 $twig = new \Twig\Environment($loader, []);
 
 $sklonovatRokFilter = new \Twig\TwigFilter('sklonovat_rok', function ($value) {
-    return "5 let";
+    if ($value == 1) {
+        return "$value rok";
+    } elseif ($value >= 2 && $value <= 4) {
+        return "$value roky";
+    } else {
+        return "$value let";
+    }
 });
 $sklonovatMesicFilter = new \Twig\TwigFilter('sklonovar_mesic', function ($value) {
-    return "5 měsíců";
+    if ($value == 1) {
+        return "$value měsíc";
+    } elseif ($value >= 2 && $value <= 4) {
+        return "$value měsíce";
+    } else {
+        return "$value měsíců";
+    }
 });
 
 $twig->addFilter($sklonovatRokFilter);
