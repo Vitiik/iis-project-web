@@ -3,10 +3,10 @@
 namespace Core;
 
 class ImageUploader{
-    public static function uploadProductImage($productId,$productSlug,$imageId,$imageFile) : array{
-        $target_dir = "media/images/products/$productId/";
+    public static function uploadZvireImage($zvireId,$imageId,$imageFile) : array{
+        $target_dir = "media/images/zvirata/";
         $imageFileType = strtolower(pathinfo($imageFile["name"],PATHINFO_EXTENSION));
-        $target_file = $target_dir . $productSlug . "-" . $imageId;
+        $target_file = $target_dir . $zvireId . "-" . $imageId;
         
         // Check if image file is a actual image or fake image
         $check = getimagesize($imageFile["tmp_name"]);

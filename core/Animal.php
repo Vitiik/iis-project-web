@@ -45,7 +45,7 @@ class Animal{
             "priorita"
         ],[
             "zvire_id" => $zvire_id,
-            "ORDER" => ["priorita" => "DESC"]
+            "ORDER" => ["priorita" => "ASC"]
         ]);
         if (!$images) {
             return array(array(

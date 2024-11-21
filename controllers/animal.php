@@ -1,6 +1,7 @@
 <?php
 
 use Core\Animal;
+use Core\User;
 
 $router->map("GET","/zvire/[i:id]",function($id){
     global $twig;
@@ -16,15 +17,18 @@ $router->map("GET","/zvire/[i:id]",function($id){
     //dump($obrazky);
 
     // echo "Očkování:";
-    dump(Animal::getOckovaniById($id));
+    //dump(Animal::getOckovaniById($id));
 
     // echo "Hmotnost:";
     //dump($hmotnost);
 
     // echo "Měření:";
-     dump(Animal::getAllMereniById($id));
+    // dump(Animal::getAllMereniById($id));
+    
+     $user = User::getLoggedInUser();
 
-    echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost]);
+
+    echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost, "user"=>$user]);
 });
 
 $router->map("POST","/createAnimal",function(){

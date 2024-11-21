@@ -5,6 +5,20 @@
 
 {% block content %}
 
+<style>
+    .zvire-image-hover:hover .zvire-image-hover-image{
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.50)) grayscale(1) brightness(0.5) !important;
+    }
+
+    .zvire-image-hover-tools{
+        transition: opacity 0.1s ease-out;
+    }
+
+    .zvire-image-hover:hover .zvire-image-hover-tools{
+        opacity: 100%;
+    }
+
+</style>
 
 
 <div class="flex flex-col w-full px-2 md:px-32 py-2 md:py-8 gap-16">
@@ -12,10 +26,48 @@
         <h1 class="md:hidden product-detail-name">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
 
         <div class="flex flex-col items-center gap-8 md:w-[32rem]">
-            <a href="javascript:;" onclick="openGallery()"><img class="shadow-md" width="450" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jack_Russell_Terrier_1.jpg/1200px-Jack_Russell_Terrier_1.jpg" alt=""></a>
+            <a href="javascript:;" onclick="openGallery()"><img class="shadow-md" width="450" src="{{obrazky[0].url_velka}}" alt=""></a>
+            {% if user == null %}
             <div class="flex flex-row flex-wrap gap-4 w-full justify-center" id="image-gallery">
-                    <a id="product-image-0" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jack_Russell_Terrier_1.jpg/1200px-Jack_Russell_Terrier_1.jpg" data-pswp-width="1000" data-pswp-height="1000" target="_blank"> <img class="shadow-md" width="96" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Jack_Russell_Terrier_1.jpg/1200px-Jack_Russell_Terrier_1.jpg" alt=""> </a>
+                {% for obrazek in obrazky %}
+                <a id="product-image-{{loop.index}}" href="{{obrazek.url_velka}}" data-pswp-width="1000" data-pswp-height="1000" target="_blank"> <img class="shadow-md" width="96" src="{{obrazek.url_mala}}" alt=""> </a>
+                {% endfor %}
             </div>
+            {% else %}
+            <div class="flex flex-row flex-wrap gap-4 w-full justify-center">
+                {% for obrazek in obrazky %}
+                    <div class="w-[96px] h-[96px] relative zvire-image-hover">
+                        <div class="w-full h-full bg-cover absolute zvire-image-hover-image" style="background-image: url({{ obrazek.url_mala }})"></div>
+                        <div class="w-full h-full p-1 flex flex-col justify-center relative opacity-0 zvire-image-hover-tools">
+                            <div class="flex flex-row">
+                                <svg onclick="window.location='/posunoutObrazekZvirete?smer=nahoru&zvire_id={{zvire.id}}&obrazek_id={{obrazek.id}}'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4 cursor-pointer">
+                                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1Zm-.75 10.25a.75.75 0 0 0 1.5 0V6.56l1.22 1.22a.75.75 0 1 0 1.06-1.06l-2.5-2.5a.75.75 0 0 0-1.06 0l-2.5 2.5a.75.75 0 0 0 1.06 1.06l1.22-1.22v4.69Z" clip-rule="evenodd" />
+                                </svg>
+                                <svg onclick="window.location='/posunoutObrazekZvirete?smer=dolu&zvire_id={{zvire.id}}&obrazek_id={{obrazek.id}}'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="shadow w-4 h-4 ml-auto cursor-pointer">
+                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm2.78-4.22a.75.75 0 0 1-1.06 0L8 9.06l-1.72 1.72a.75.75 0 1 1-1.06-1.06L6.94 8 5.22 6.28a.75.75 0 0 1 1.06-1.06L8 6.94l1.72-1.72a.75.75 0 1 1 1.06 1.06L9.06 8l1.72 1.72a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex flex-row mt-auto">
+                                <svg onclick="window.location='/posunoutObrazekZvirete?smer=doleva&zvire_id={{zvire.id}}&obrazek_id={{obrazek.id}}'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4 cursor-pointer">
+                                    <path fill-rule="evenodd" d="M14 8a.75.75 0 0 1-.75.75H4.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z" clip-rule="evenodd" />
+                                </svg>
+                                <svg onclick="window.location='/posunoutObrazekZvirete?smer=doprava&zvire_id={{zvire.id}}&obrazek_id={{obrazek.id}}'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-4 h-4 ml-auto cursor-pointer">
+                                    <path fill-rule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div data-modal-target="add-image-modal" data-modal-toggle="add-image-modal" class="w-[96px] h-[96px] relative border shadow cursor-pointer">
+                    <div class="w-full h-full p-1 flex flex-col gap-2 justify-center items-center relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="w-4 h-4 fill-green-600">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm.75-10.25v2.5h2.5a.75.75 0 0 1 0 1.5h-2.5v2.5a.75.75 0 0 1-1.5 0v-2.5h-2.5a.75.75 0 0 1 0-1.5h2.5v-2.5a.75.75 0 0 1 1.5 0Z" clip-rule="evenodd" />
+                        </svg>
+                        <p class="text-xs">Přidat obrázek</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
         <div class="ml-auto">
             <h1 class="hidden md:block font-bold text-2xl mb-2">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
@@ -61,6 +113,7 @@
                     </svg>
                     Rezervovat zde
                 </button>
+                {% if user != null %}
                 <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="new-event-modal" data-modal-toggle="new-event-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
                         <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
@@ -68,6 +121,7 @@
 
                     Přidat událost
                 </button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -263,6 +317,53 @@ window.lightbox.init();
 
         <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Vytvořit</button>
     </form>
+
+    {% endblock %}
+{% endembed %}
+
+{% embed 'admin/admin_modal.twig' with {"id": "add-image", "title":"Přidat obrázek"} %}
+    {% block modal_body %}
+    <form class="space-y-4" action="/nahratObrazekZvirete" method="POST" enctype="multipart/form-data">
+        <input type="text" name="zvire_id" hidden value="{{ zvire.id }}">
+        <div class="flex items-center justify-center w-full">
+            <label for="image_files" class="flex flex-col items-center justify-center w-full min-h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div class="p-4 grid grid-cols-3 w-full justify-center gap-6" id="preview-container"></div>
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                    </svg>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">JPG (MAX. 1MB)</p>
+                </div>
+                <input id="image_files" name="image_files[]" type="file" class="hidden" multiple />
+            </label>
+        </div> 
+
+        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Přidat</button>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+        $("#image_files").on("change", function(){
+            var files = $(this)[0].files;
+            $("#preview-container").empty();
+            if(files.length > 0){
+                for(var i = 0; i < files.length; i++){
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        $("<div class='w-24 h-24 preview'><img class='rounded shadow' src='" + e.target.result + "'><button class='delete'>Delete</button></div>").appendTo("#preview-container");
+                    };
+                    reader.readAsDataURL(files[i]);
+                }
+            }
+        });
+        $("#preview-container").on("click", ".delete", function(event){
+                event.preventDefault();
+                $(this).parent(".preview").remove();
+                $("#file-input").val(""); // Clear input value if needed
+            });
+        });
+    </script>
 
     {% endblock %}
 {% endembed %}
