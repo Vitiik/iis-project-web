@@ -15,15 +15,60 @@
             <h1 class="text-center font-bold text-2xl">{{user.jmeno}} {{user.prijmeni}}</h1>
             <h2 class="text-center">{{user.email}}</h2>
             <p class="text-green-700">Uživatel byl ověřen: 30.10.2024</p>
-            <a href="" class="flex flex-row gap-2 p-2 bg-gray-800 text-white rounded shadow items-center">
+            <button data-modal-target="change-password-modal" data-modal-toggle="change-password-modal" class="flex flex-row gap-2 p-2 bg-gray-800 text-white rounded shadow items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                 <path fill-rule="evenodd" d="M8 7a5 5 0 1 1 3.61 4.804l-1.903 1.903A1 1 0 0 1 9 14H8v1a1 1 0 0 1-1 1H6v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2a1 1 0 0 1 .293-.707L8.196 8.39A5.002 5.002 0 0 1 8 7Zm5-3a.75.75 0 0 0 0 1.5A1.5 1.5 0 0 1 14.5 7 .75.75 0 0 0 16 7a3 3 0 0 0-3-3Z" clip-rule="evenodd" />
                 </svg>
 
                 Změnit heslo
-            </a>
+            </button>
         <div></div>
     </div>
 </div>
+
+{% embed 'shelter/partials/modal.twig' with {"id": "change-password", "title":"Změnit heslo"} %}
+    {% block modal_body %}
+    <form class="ajax-form space-y-4" action="/changePassword" method="POST">
+        <div class="col-span-2 sm:col-span-1">
+            <label for="stare_heslo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Staré heslo</label>
+            <input type="password" name="stare_heslo" id="stare_heslo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="nove_heslo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nové heslo</label>
+            <input type="password" name="nove_heslo" id="nove_heslo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+
+        <div class="col-span-2 sm:col-span-1">
+            <label for="nove_heslo_znovu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nové heslo znovu</label>
+            <input type="password" name="nove_heslo_znovu" id="nove_heslo_znovu" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+        </div>
+        
+        <button class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Změnit heslo</button>
+    </form>
+
+    <script>
+        const frm = document.querySelector('.ajax-form');
+        frm.addEventListener('submit', function(e) {
+            if (frm.checkValidity()) {
+                var form = $(frm);
+                var actionUrl = form.attr("action");
+                var formData = form.serializeArray().reduce(function(obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
+                postData(actionUrl,formData).then((result)=>{
+                    console.log(result);
+                    if(result.status == "success"){
+                        //
+                    }
+                });
+            }
+            e.preventDefault();
+        });
+    </script>
+
+    {% endblock %}
+{% endembed %}
 
 {% endblock %}

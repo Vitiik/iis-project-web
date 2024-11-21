@@ -1,6 +1,7 @@
 <?php
 
 use Core\Animal;
+use Core\User;
 
 $router->map("GET","/zvirata",function(){
     global $twig;
@@ -22,11 +23,13 @@ $router->map("GET","/zvirata",function(){
             $zvire['posledni_ockovani'] = NULL;
         }
         if ($zvire['url_mala'] == null) {
-            $zvire['url_mala'] = "no-image.jpg";
+            $zvire['url_mala'] = "/media/images/no-image.jpg";
         }
     }
 
-    dump($zvirata);
+    //dump($zvirata);
 
-    echo $twig->render('shelter/animals.twig',["zvirata"=>$zvirata]);
+    $user = User::getLoggedInUser();
+
+    echo $twig->render('shelter/animals.twig',["zvirata"=>$zvirata,"user"=>$user]);
 });

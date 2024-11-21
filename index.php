@@ -16,7 +16,7 @@ $sklonovatRokFilter = new \Twig\TwigFilter('sklonovat_rok', function ($value) {
         return "$value let";
     }
 });
-$sklonovatMesicFilter = new \Twig\TwigFilter('sklonovar_mesic', function ($value) {
+$sklonovatMesicFilter = new \Twig\TwigFilter('sklonovat_mesic', function ($value) {
     if ($value == 1) {
         return "$value měsíc";
     } elseif ($value >= 2 && $value <= 4) {

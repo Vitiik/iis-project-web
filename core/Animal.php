@@ -7,7 +7,7 @@ class Animal{
     public static function getAllAnimals(){
         global $db;
         return $db->select("zvire(z)", [   
-                "[>]fotka_zvirete(fz)" => ["id" => "zvire_id"]
+                "[>]fotka_zvirete(fz)" => ["id" => "zvire_id","AND" => ["priorita[=]" => "max(priorita)"]]
             ],[
                 "z.id",
                 "z.jmeno",
@@ -50,9 +50,9 @@ class Animal{
         if (!$images) {
             return array(array(
                     "id" => 0,
-                    "url_velka" => "no-image.jpg",
-                    "url_stredni" => "no-image.jpg",
-                    "url_mala" => "no-image.jpg",
+                    "url_velka" => "/media/images/no-image.jpg",
+                    "url_stredni" => "/media/images/no-image.jpg",
+                    "url_mala" => "/media/images/no-image.jpg",
                     "priorita" => 1
                     ));
         }

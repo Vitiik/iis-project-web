@@ -1,30 +1,22 @@
-<div class="w-full h-36 border rounded-md shadow-md flex flex-row p-2 gap-4">
+<div class="w-full h-36 border rounded-md flex flex-row p-2 gap-4">
     <a href="/zvire/{{zvire.id}}">
-        <div class="size-32 bg-center bg-cover rounded" style="background-image: url('/media/images/{{zvire.url_mala}}');"></div>
+        <div class="size-32 bg-center bg-cover rounded" style="background-image: url('{{zvire.url_mala}}');"></div>
     </a>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 w-full">
         <a href="/zvire/{{zvire.id}}" class="text-xl">{{zvire.plemeno}} - {{zvire.jmeno}}</a>
-        <p class="line-clamp-2 text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas ipsum velit, consectetuer eu lobortis ut, dictum at dui. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Mauris dictum facilisis augue. Suspendisse sagittis ultrices augue. Quisque tincidunt scelerisque libero. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu, velit. Duis pulvinar. Fusce aliquam vestibulum ipsum. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Fusce wisi. Fusce nibh. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Nunc tincidunt ante vitae massa. Nulla est. Nullam rhoncus aliquam metus. Sed convallis magna eu sem.</p>
-        <div class="flex flex-row gap-4 items-center">
+        <p class="line-clamp-2 text-sm">{{zvire.popis}}</p>
+        <div class="flex flex-row gap-4 items-center w-full mt-auto">
             {% set year_age = date().diff(date(zvire.datum_narozeni)).y %}
             {% set month_age = date().diff(date(zvire.datum_narozeni)).m %}
 
-            {% if year_age > 4 %}
-                <p>Věk: {{year_age}} let</p>
-            {% else %}
-                {% if year_age > 1 %}
-                    <p>Věk: {{year_age}} roky</p>
-                {% else %}
-                    <p>Věk: {{month_age}} měsíců</p>
-                {% endif %}
-            {% endif %}
-            <p>Pohlaví: {{zvire.pohlavi}}</p>
-            <p>Poslední očkování: {{zvire.posledni_ockovani|date("d. m. Y")}}</p>
-            <a href="/zvire/{{zvire.id}}" class="bg-gray-800 text-white rounded shadow p-2 flex flex-row items-center gap-2 ml-auto">
+            <p class="text-sm">věk: {{ year_age == 0 ? month_age|sklonovat_mesic() : year_age|sklonovat_rok() }}</p>
+            <p class="text-sm">pohlaví: {{zvire.pohlavi}}</p>
+            <p class="text-sm">poslední očkování: {{zvire.posledni_ockovani|date("d. m. Y")}}</p>
+            <a href="/zvire/{{zvire.id}}" class="hover:underline text-blue-400 rounded p-2 flex flex-row items-center gap-2 ml-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" />
                 </svg>
-                Více info
+                Detail
             </a>
         </div>
     </div>
