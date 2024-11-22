@@ -6,6 +6,8 @@ use Core\User;
 $router->map("POST","/prodej",function(){
     global $twig;
 
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     if (isset($_POST["vytvorit"])){
         $response = Manipulace::createProdej($_POST["jmeno_zakaznika"],$_POST["telefon_zakaznika"],$_POST["cena"],$_POST["cas"],$_POST["zvire_id"]);
 
@@ -33,6 +35,8 @@ $router->map("POST","/prodej",function(){
 
 $router->map("POST","/nalezeni",function(){
     global $twig;
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
 
     if (isset($_POST["vytvorit"])){
         $response = Manipulace::createNalezeni($_POST["jmeno_nalezce"],$_POST["kontakt_na_nalezce"],$_POST["misto_nalezeni"],$_POST["cas"],$_POST["zvire_id"]);
@@ -62,6 +66,8 @@ $router->map("POST","/nalezeni",function(){
 $router->map("POST","/umrti",function(){
     global $twig;
 
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     if (isset($_POST["vytvorit"])){
         $response = Manipulace::createUmrti($_POST["pricina"],$_POST["cas"],$_POST["zvire_id"]);
 
@@ -87,7 +93,10 @@ $router->map("POST","/umrti",function(){
 
 $router->map("POST","/prohlidka",function(){
     global $twig;
-    dump($_POST);
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    // dump($_POST);
     if (isset($_POST["vytvorit"])){
         if($_POST["pozdavek_id"] == -1) $_POST["pozdavek_id"] = NULL; 
         if(!isset($_POST["vakcina"])) $_POST["vakcina"] = NULL;

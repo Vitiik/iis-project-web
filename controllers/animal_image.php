@@ -6,6 +6,9 @@ use Core\UploadException;
 
 $router->map("POST","/nahratObrazekZvirete",function(){
     global $db;
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
     $images = reArrayFiles($_FILES["image_files"]);
 
     foreach ($images as $key => $image) {

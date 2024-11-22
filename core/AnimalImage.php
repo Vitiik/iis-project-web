@@ -15,7 +15,7 @@ class AnimalImage{
             $next_order = intval($max_next_order) + 1;
         }
 
-        $db->insert("fotka_zvirete",["zvire_id"=>$zvire_id,"url_velka"=>$image_paths[0],"url_stredni"=>$image_paths[1],"url_mala"=>$image_paths[2],"priorita"=>$next_order]);
+        return $db->insert("fotka_zvirete",["zvire_id"=>$zvire_id,"url_velka"=>$image_paths[0],"url_stredni"=>$image_paths[1],"url_mala"=>$image_paths[2],"priorita"=>$next_order]);
     }
 
     public static function deleteById(int $image_id){

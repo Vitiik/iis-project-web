@@ -12,6 +12,8 @@ $router->map("POST","/admin/raw_db/[:table_name]/edit",function($table_name){
     global $twig, $db;
     admin_kick();
 
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     foreach ($_POST as $key => $field) {
         if($field === "NULL"){
             $_POST[$key] = null;
@@ -27,6 +29,8 @@ $router->map("POST","/admin/raw_db/[:table_name]/delete",function($table_name){
     global $twig, $db;
     admin_kick();
 
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     $db->delete($table_name,["id"=>$_POST["id"]]);
 
     header("Location: /admin/raw_db/".$table_name);
@@ -35,6 +39,8 @@ $router->map("POST","/admin/raw_db/[:table_name]/delete",function($table_name){
 $router->map("POST","/admin/raw_db/[:table_name]/add",function($table_name){
     global $twig, $db;
     admin_kick();
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
 
     foreach ($_POST as $key => $field) {
         if($field === "NULL"){

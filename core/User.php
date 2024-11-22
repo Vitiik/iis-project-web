@@ -21,4 +21,24 @@ class User{
         return null;
     }
 
+    public static function createUser($jmeno,$prijmeni,$email,$heslo){
+        global $db;
+        $heslo_hash = password_hash($heslo,PASSWORD_BCRYPT);
+        return $db->insert("uzivatel",[
+            "jmeno" => $jmeno,
+            "prijmeni" => $prijmeni,
+            "email" => $email,
+            "heslo" => $heslo_hash
+        ]);
+    }
+
+    public static function overitUser($id,$cas){
+        global $db;
+        return $db->update("uzivatel",[
+            "overen_kdy" => date("Y-m-d h:i:sa"),
+        ],[
+            "id" => $id
+        ]);
+    }
+
 }

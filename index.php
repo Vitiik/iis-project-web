@@ -96,7 +96,7 @@ function display_404(){
 }
 
 function admin_kick(){
-    if(!isset($_SESSION["user_username"])){
+    if(!isset($_SESSION["user_email"])){
         header("Location: /");
     }
 }

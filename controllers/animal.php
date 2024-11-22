@@ -38,6 +38,8 @@ $router->map("GET","/zvire/[i:id]",function($id){
 
 $router->map("POST","/createAnimal",function(){
 
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
     $response = Animal::createAnimal($_POST["jmeno"],$_POST["zivocisny_druh"],$_POST["plemeno"],$_POST["pohlavi"],$_POST["datum_narozeni"]);
 
     if ($response == false){
