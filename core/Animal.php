@@ -296,6 +296,10 @@ class Animal{
         return $manipulace;
     }
 
+    public static function editAnimal($_POST){
+        global $db;
+        return $db->update("zvire",$_POST,["id" => $_POST["id"]]);
+    }
 
     public static function createAnimal($jmeno,$zivocisny_druh,$plemeno,$pohlavi,$datum_narozeni){
         global $db;

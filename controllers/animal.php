@@ -64,5 +64,25 @@ $router->map("POST","/createAnimal",function(){
                 )
         ));
     }
+});
+
+$router->map("POST","/editAnimal",function(){
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $response = Animal::editAnimal($_POST);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Zvíře bylo aktualizováno v databáze",
+            "data"=> $_POST
+        ));
+    }
 
 });
