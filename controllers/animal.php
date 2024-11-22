@@ -109,7 +109,9 @@ $router->map("POST","/reserveAnimal",function(){
 
     $user = User::getLoggedInUser();
 
-    $response = Animal::reserveAnimal($_POST["id_volne_casy"],$_POST["zvire_id"],$user["id"]);
+    foreach($_POST["id"] as $id){
+        $response = Animal::reserveAnimal($id,$_POST["zvire_id"],$user["id"]);
+    }
 
     if ($response == false){
         echo json_encode(array(
@@ -117,21 +119,10 @@ $router->map("POST","/reserveAnimal",function(){
             "message" => "Nastala chyba při zápisu do databáze"
         ));
     } else {
-        $zvire_id = $response;
-
-        $response = Manipulace::createNalezeni($_POST["jmeno_nalezce"],$_POST["kontakt_na_nalezce"],$_POST["misto_nalezeni"],$_POST["cas"],$zvire_id);
-
-        if ($response == false){
-            echo json_encode(array(
-                "status" => "error",
-                "message" => "Nastala chyba při zápisu do databáze"
-            ));
-        } else {
-            echo json_encode(array(
-                "status" => "success",
-                "message" => "Rezervace proběhla úspěšně"
-            ));
-        }
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Rezervace proběhla úspěšně"
+        ));
     }
 });
 
@@ -155,3 +146,80 @@ $router->map("POST","/addReservationTimes",function(){
         ));
     }
 });
+
+$router->map("POST","/acceptReservation",function(){
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $user = User::getLoggedInUser();
+    
+    $response = Animal::acceptReservation($_POST["rezervace_id"],$user["id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Rezervace byla úspěčně shválena"
+        ));
+    }
+});
+
+$router->map("POST","/zvireZapujceno",function(){
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = Animal::zvireZapujceno($_POST["rezervace_id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Zvíře bylo zapůjčeno"
+        ));
+    }
+});
+
+$router->map("POST","/zvireVraceno",function(){
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = Animal::zvireVraceno($_POST["rezervace_id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Zvíře bylo vráceno"
+        ));
+    }
+});
+
+$router->map("POST","/vytvoritPozadavekNaProhlidku",function(){
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $user = User::getLoggedInUser();
+    
+    $response = Animal::createPozadavekNaProhlidku($_POST["zamereni"],$user["id"],$_POST["zvire_id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Požadavek na prohlídku byl úspěčně vytvořen"
+        ));
+    }
+});
+
