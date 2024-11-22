@@ -297,7 +297,7 @@ class Animal{
 
     public static function createAnimal($jmeno,$zivocisny_druh,$plemeno,$pohlavi,$datum_narozeni){
         global $db;
-        $db->insert("zvire",[
+        return $db->insert("zvire",[
             "jmeno" => $jmeno,
             "zivocisny_druh" => $zivocisny_druh,
             "plemeno" => $plemeno,

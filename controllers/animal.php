@@ -38,6 +38,25 @@ $router->map("GET","/zvire/[i:id]",function($id){
 
 $router->map("POST","/createAnimal",function(){
 
-    Animal::createAnimal($_POST["jmeno"],$_POST["zivocisny_druh"],$_POST["plemeno"],$_POST["pohlavi"],$_POST["datum_narozeni"]);
+    $response = Animal::createAnimal($_POST["jmeno"],$_POST["zivocisny_druh"],$_POST["plemeno"],$_POST["pohlavi"],$_POST["datum_narozeni"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Zvíře bylo přidáno do databáze",
+            "data"=> array(
+                "jmeno"=>$_POST["jmeno"],
+                "zivocisny_druh" => $_POST["zivocisny_druh"],
+                "plemeno" => $_POST["plemeno"],
+                "pohlavi" => $_POST["pohlavi"],
+                "datum_narozeni" => $_POST["datum_narozeni"]
+                )
+        ));
+    }
 
 });

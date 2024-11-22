@@ -14,7 +14,19 @@ $router->map("POST","/nahratObrazekZvirete",function(){
         
         try{
             $newImagePaths = ImageUploader::uploadZvireImage($_POST["zvire_id"],$nextImageId,$image);
-            AnimalImage::createAnimalImage($_POST["zvire_id"],$newImagePaths);
+            $response = AnimalImage::createAnimalImage($_POST["zvire_id"],$newImagePaths);
+            if ($response == false){
+                echo json_encode(array(
+                    "status" => "error",
+                    "message" => "Nastala chyba při vytváření obrázku zvířete"
+                ));
+            } else {
+                echo json_encode(array(
+                    "status" => "success",
+                    "message" => "Obrázek zvíře byl vytvořen",
+                    "data"=> ""
+                ));
+            }
         }catch (UploadException $e){
             dump($e);
         }
