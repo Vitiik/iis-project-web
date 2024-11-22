@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Útulek - Login</title>
+    <title>Útulek - Registrace</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="/media/css/style.css" rel="stylesheet"/>
 </head>
 <body class="h-full">
     
-    <form action="/login" method="POST" class="flex w-full h-full">
+    <form action="/create-user" method="POST" class="flex w-full h-full">
         <div class="flex flex-col mx-auto my-auto gap-2 w-72">
             <img src="/media/images/logo.png" class="mx-auto mb-4" width="200" alt="">
+            <div class="flex flex-row gap-2">
+                <div class="input-with-placeholder">
+                    <input required type="text" id="jmeno" name="jmeno">
+                    <label for="jmeno">Jméno</label>
+                </div>
+                <div class="input-with-placeholder">
+                    <input required type="text" id="prijmeni" name="prijmeni">
+                    <label for="prijmeni">Příjmení</label>
+                </div>
+            </div>
             <div class="input-with-placeholder">
                 <input required type="text" id="email" name="email">
                 <label for="email">E-mail</label>
@@ -20,8 +30,8 @@
                 <input required type="password" id="password" name="password">
                 <label for="password">Heslo</label>
             </div>
-            <button class="bg-green-600 p-4 rounded text-white">Přihlásit se</button>
-            <a href="/registrace" class="text-white rounded text-center bg-blue-600 p-2 text-sm">Chci se registrovat</a>
+            <button class="bg-green-600 p-4 rounded text-white">Registrovat</button>
+            <a href="/registrace" class="text-white rounded text-center bg-blue-600 p-2 text-sm">Chci se přihlásit</a>
 
             <a href="/" class="text-blue-600 text-center p-2 hover:underline">Zpět na hlavní stránky</a>
         </div>

@@ -32,7 +32,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     
     $user = User::getLoggedInUser();
 
-    dump($manipulace);
+    //dump($manipulace);
 
 
     echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost, "user"=>$user, "zvire_je_volne"=>$zvire_je_volne, "manipulace"=>$manipulace]);
