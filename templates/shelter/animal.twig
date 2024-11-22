@@ -141,7 +141,7 @@
             </div>
             <hr class="w-full h-px mt-4 bg-slate-200 border-0 mb-4">
             <div class="flex flex-row gap-2">
-                <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2">
+                <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="reserve-modal" data-modal-toggle="reserve-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                     <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
                     <path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" />
@@ -155,6 +155,14 @@
                     </svg>
 
                     Přidat událost
+                </button>
+
+                <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="create-reserve-modal" data-modal-toggle="create-reserve-modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
+                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" />
+                    </svg>
+                    Vytvořit rezervace
                 </button>
                 {% endif %}
             </div>
@@ -204,7 +212,16 @@
                 {% endfor %}
                 {% if manipulace|length > 10 %}
                     <div class="flex flex-row w-full h-8 items-center border-t">
-                        <p class="text-center">...</p>
+                        <p class="text-center w-full">...</p>
+                    </div>
+                    <div class="flex flex-row w-full h-8 items-center border-t">
+                        <p>{{manipulace[manipulace|length-1].cas|date("d. m. Y")}}</p>
+                        <p class="ml-auto flex flex-row gap-1 items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                            Nalezení
+                        </p>
                     </div>
                 {% endif %}
             </div>
@@ -231,6 +248,42 @@ window.lightbox = new PhotoSwipeLightbox({
 });
 window.lightbox.init();
 </script>
+
+{% embed 'shelter/partials/modal.twig' with {"id": "create-reserve", "title":"Vytvořit rezervace na zvíře"} %}
+    {% block modal_body %}
+    <form class="ajax-form space-y-4" action="/reserveAnimal" method="POST">
+        <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
+        <div class="flex flex-row gap-2 items-center">
+            <input type="datetime-local" value="{{zvire.jmeno}}" name="cas-zacatku" id="cas-zacatku" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Puňta" required="">
+            <p class="text-white">-</p>
+            <input type="datetime-local" value="{{zvire.jmeno}}" name="cas-zacatku" id="cas-zacatku" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Puňta" required="">
+        </div>
+
+        <button type="submit" class="w-full disabled:bg-gray-600 disabled:hover:bg-gray-600 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Vytvořit</button>
+    </form>
+
+    {% endblock %}
+{% endembed %}
+
+{% embed 'shelter/partials/modal.twig' with {"id": "reserve", "title":"Rezervovat zvíře"} %}
+    {% block modal_body %}
+    <form class="ajax-form space-y-4" action="/reserveAnimal" method="POST">
+
+        {% if zvire_je_volne|length == 0 %}
+            <p class="text-white">Nebyly nalezeny žádné dostupné termíny.</p>
+        {% endif %}
+        {% for volne in zvire_je_volne %}        
+        <div class="flex items-center px-4 border rounded border-gray-600">
+            <input id="checkbox-{{volne.id}}" type="checkbox" value="{{volne.id}}" name="id[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="checkbox-{{volne.id}}" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex flex-row">{{volne.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}}<p class="ml-auto">{{volne.cas_zacatku|date("H:m")}} - {{volne.cas_konce|date("H:m")}}</p></label>
+        </div>
+        {% endfor %}
+
+        <button {{zvire_je_volne|length == 0 ? "disabled" : ""}} type="submit" class="w-full disabled:bg-gray-600 disabled:hover:bg-gray-600 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rezervovat</button>
+    </form>
+
+    {% endblock %}
+{% endembed %}
 
 {% embed 'shelter/partials/modal.twig' with {"id": "change-name", "title":"Změnit jméno zvířete"} %}
     {% block modal_body %}
