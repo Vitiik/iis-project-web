@@ -312,4 +312,33 @@ class Animal{
         ]);
     }
 
+    public static function createRozvrhProRezervovani($cas_zacatku, $cas_konce, $zvire_id, $osetrovatel_id){
+        global $db;
+
+        return $db->insert("zvire_je_volne",[
+            "cas_zacatku" => $cas_zacatku,
+            "cas_konce" => $cas_konce,
+            "zvire_id" => $zvire_id,
+            "osetrovatel_id" => $osetrovatel_id
+        ]);
+    }
+
+    public static function reserveAnimal($id_volne_casy, $zvire_id, $klient_id){
+        global $db;
+
+        foreach($id_volne_casy as $id){
+            $casy = $db->get("zvire_je_volne", [
+                "cas_zacatku",
+                "cas_konce"
+                ],["id" => $id]);
+
+            $db->insert("rezervace",[
+                "cas_zacatku" => $casy["cas_zacatku"],
+                "cas_konce" => $casy["cas_konce"],
+                "zvire_id" => $zvire_id,
+                "klient_id" => $klient_id
+            ]);
+        }
+    }
+
 }

@@ -2,6 +2,7 @@
 
 use Core\Animal;
 use Core\User;
+use Core\Manipulace;
 
 $router->map("GET","/zvire/[i:id]",function($id){
     global $twig;
@@ -32,7 +33,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     
     $user = User::getLoggedInUser();
 
-    dump($manipulace);
+    // dump($manipulace);
 
 
     echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost, "user"=>$user, "zvire_je_volne"=>$zvire_je_volne, "manipulace"=>$manipulace]);
@@ -50,19 +51,34 @@ $router->map("POST","/createAnimal",function(){
             "message" => "Nastala chyba při zápisu do databáze"
         ));
     } else {
-        echo json_encode(array(
-            "status" => "success",
-            "message" => "Zvíře bylo přidáno do databáze",
-            "data"=> array(
-                "id"=>$_POST["id"],
-                "jmeno"=>$_POST["jmeno"],
-                "zivocisny_druh" => $_POST["zivocisny_druh"],
-                "plemeno" => $_POST["plemeno"],
-                "pohlavi" => $_POST["pohlavi"],
-                "datum_narozeni" => $_POST["datum_narozeni"],
-                "popis" =>$_POST["popis"]
-                )
-        ));
+        $zvire_id = $response;
+
+        $response = Manipulace::createNalezeni($_POST["jmeno_nalezce"],$_POST["kontakt_na_nalezce"],$_POST["misto_nalezeni"],$_POST["cas"],$zvire_id);
+
+        if ($response == false){
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Nastala chyba při zápisu do databáze"
+            ));
+        }else {
+            echo json_encode(array(
+                "status" => "success",
+                "message" => "Zvíře bylo přidáno do databáze",
+                "data"=> array(
+                    "id"=>$zvire_id,
+                    "jmeno"=>$_POST["jmeno"],
+                    "zivocisny_druh" => $_POST["zivocisny_druh"],
+                    "plemeno" => $_POST["plemeno"],
+                    "pohlavi" => $_POST["pohlavi"],
+                    "datum_narozeni" => $_POST["datum_narozeni"],
+                    "popis" => $_POST["popis"],
+                    "jmeno_nalezce" => $_POST["jmeno_nalezce"],
+                    "kontakt_na_nalezce" => $_POST["kontakt_na_nalezce"],
+                    "misto_nalezeni" => $_POST["misto_nalezeni"],
+                    "cas" => $_POST["cas"]
+                    )
+            ));
+        }
     }
 });
 
@@ -85,4 +101,57 @@ $router->map("POST","/editAnimal",function(){
         ));
     }
 
+});
+
+$router->map("POST","/reserveAnimal",function(){
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $user = User::getLoggedInUser();
+
+    $response = Animal::reserveAnimal($_POST["id_volne_casy"],$_POST["zvire_id"],$user["id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        $zvire_id = $response;
+
+        $response = Manipulace::createNalezeni($_POST["jmeno_nalezce"],$_POST["kontakt_na_nalezce"],$_POST["misto_nalezeni"],$_POST["cas"],$zvire_id);
+
+        if ($response == false){
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Nastala chyba při zápisu do databáze"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => "success",
+                "message" => "Rezervace proběhla úspěšně"
+            ));
+        }
+    }
+});
+
+$router->map("POST","/addReservationTimes",function(){
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $user = User::getLoggedInUser();
+
+    $response = Animal::createRozvrhProRezervovani($_POST["cas_zacatku"],$_POST["cas_konce"],$_POST["zvire_id"],$user["id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Úspěšně přidán čas pro registraci"
+        ));
+    }
 });
