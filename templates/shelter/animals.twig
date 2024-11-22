@@ -17,7 +17,7 @@
     </button>
 </div>
 
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2" id="animals-holder">
     {% for zvire in zvirata %}
         {% embed 'shelter/partials/animal_card.twig' with {"zvire": zvire} %}{% endembed %}
     {% endfor %}
@@ -25,7 +25,7 @@
 
 {% embed 'shelter/partials/modal.twig' with {"id": "new-animal", "title":"Přidat nové zvíře"} %}
     {% block modal_body %}
-    <form class="space-y-4" action="/createAnimal" method="POST">
+    <form class="ajax-form space-y-4" data-ajax-callback="updateAnimals" action="/createAnimal" method="POST">
         <div class="col-span-2 sm:col-span-1">
             <label for="jmeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jméno zvířete</label>
             <input type="text" name="jmeno" id="jmeno" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
@@ -60,5 +60,33 @@
     </form>
     {% endblock %}
 {% endembed %}
+
+<script>
+    function updateAnimals(response){
+        var animalData = response.data;
+        var newAnimalHTML = `<div class="w-full h-36 border rounded-md flex flex-row p-2 gap-4">
+                            <a href="/zvire/`+animalData.id+`">
+                                <div class="size-32 bg-center bg-cover rounded" style="background-image: url('/media/images/no-image.jpg');"></div>
+                            </a>
+                            <div class="flex flex-col gap-2 w-full">
+                                <a href="/zvire/`+animalData.id+`" class="text-xl">`+animalData.plemeno+` - `+animalData.jmeno+`</a>
+                                <p class="line-clamp-2 text-sm">`+animalData.popis+`</p>
+                                <div class="flex flex-row gap-4 items-center w-full mt-auto">
+                                    <p class="text-sm">pohlaví: `+animalData.pohlavi+`</p>
+                                    <a href="/zvire/`+animalData.id+`" class="hover:underline text-blue-400 rounded p-2 flex flex-row items-center gap-2 ml-auto">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                                            <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" />
+                                        </svg>
+                                        Detail
+                                    </a>
+                                </div>
+                            </div>
+                        </div>`;
+        $("#animals-holder").prepend(newAnimalHTML);
+    }
+</script>
+
+<script src="/media/js/ajax-form.js"></script>
+
 
 {% endblock %}

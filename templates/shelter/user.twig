@@ -44,29 +44,10 @@
             <input type="password" name="nove_heslo_znovu" id="nove_heslo_znovu" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
         </div>
         
-        <button class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Změnit heslo</button>
+        <button class="flex items-center justify-center gap-2 w-full text-white bg-blue-700 hover:bg-blue-800 disabled:bg-gray-600 disabled:hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Změnit heslo</button>
     </form>
 
-    <script>
-        const frm = document.querySelector('.ajax-form');
-        frm.addEventListener('submit', function(e) {
-            if (frm.checkValidity()) {
-                var form = $(frm);
-                var actionUrl = form.attr("action");
-                var formData = form.serializeArray().reduce(function(obj, item) {
-                    obj[item.name] = item.value;
-                    return obj;
-                }, {});
-                postData(actionUrl,formData).then((result)=>{
-                    console.log(result);
-                    if(result.status == "success"){
-                        //
-                    }
-                });
-            }
-            e.preventDefault();
-        });
-    </script>
+    <script src="/media/js/ajax-form.js"></script>
 
     {% endblock %}
 {% endembed %}
