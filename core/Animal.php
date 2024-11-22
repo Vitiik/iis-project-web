@@ -88,7 +88,9 @@ class Animal{
         global $db;
         return $db->select("prohlidka", [   
                 "cas",
-                "vakcina"
+                "vakcina",
+                "zdravotni_stav",
+                "zverolekar_id"
             ],[
                 "zvire_id" => $id,
                 "vakcina[!]" => NULL,
@@ -103,7 +105,9 @@ class Animal{
                 "cas",
                 "vyska",
                 "delka",
-                "hmotnost"
+                "hmotnost",
+                "zdravotni_stav",
+                "zverolekar_id"
             ],[
                 "zvire_id" => $id,
                 "OR" => [
@@ -121,6 +125,63 @@ class Animal{
         return $db->get("prohlidka", ["hmotnost"],[
                 "zvire_id" => $id,
                 "hmotnost[!]" => NULL,
+                "ORDER" => ["cas" => "DESC"]
+            ]
+        );
+    }
+
+    public static function getNalezeniById($id){
+        global $db;
+        return $db->get("nalezeni", [
+                "jmeno_nalezce",
+                "kontakt_na_nalezce",
+                "misto_nalezeni",
+                "cas"
+            ],[
+                "zvire_id" => $id,
+                "ORDER" => ["cas" => "DESC"]
+            ]
+        );
+    }
+
+    public static function getProdejById($id){
+        global $db;
+        return $db->get("prodej", [
+                "jmeno_zakaznika",
+                "telefon_zakaznika",
+                "cena",
+                "cas"
+            ],[
+                "zvire_id" => $id,
+                "ORDER" => ["cas" => "DESC"]
+            ]
+        );
+    }
+
+    public static function getUmrtiById($id){
+        global $db;
+        return $db->get("umrti", [
+                "pricina",
+                "cas"
+            ],[
+                "zvire_id" => $id,
+                "ORDER" => ["cas" => "DESC"]
+            ]
+        );
+    }
+
+    public static function getAllProhlidkyBezMereniOckovaniById($id){
+        global $db;
+        return $db->get("prohlidka", [   
+            "cas",
+            "zdravotni_stav",
+            "zverolekar_id"
+        ],[
+                "zvire_id" => $id,
+                "vakcina" => NULL,
+                "vyska" => NULL,
+                "delka" => NULL,
+                "hmotnost" => NULL,
                 "ORDER" => ["cas" => "DESC"]
             ]
         );
@@ -147,42 +208,90 @@ class Animal{
         }
 
         // Step 3: Fetch available times excluding conflicting intervals
-        $available_times = $db->select("zvire_je_volne", "*", [
-            "zvire_id" => $id,
-            "AND" => [
-                "OR # Exclude conflicting intervals" => [
-                    "cas_zacatku[!]" => array_column($conflict_conditions, 'cas_zacatku'),
-                    "cas_konce[!]" => array_column($conflict_conditions, 'cas_konce')
+        if ($conflicting_reservations != NULL){
+            $available_times = $db->select("zvire_je_volne", "*", [
+                "zvire_id" => $id,
+                "AND" => [
+                    "OR # Exclude conflicting intervals" => [
+                        "cas_zacatku[!]" => array_column($conflict_conditions, 'cas_zacatku'),
+                        "cas_konce[!]" => array_column($conflict_conditions, 'cas_konce')
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        } else {
+            $available_times = $db->select("zvire_je_volne", "*", ["zvire_id" => $id]);
+        }
 
         return $available_times;
     }
 
     public static function getManipulaceById($id){
         global $db;
-        return NULL;
-        // return $db->select([
-        //         "prohlidka(p)",
-        //         "nalezeni(n)",
-        //         "prodej(pr)",
-        //         "umrti(u)"],"*"
-        //     // ],[
-        //     //     "z.id",
-        //     //     "z.jmeno",
-        //     //     "z.zivocisny_druh",
-        //     //     "z.plemeno",
-        //     //     "z.pohlavi",
-        //     //     "z.datum_narozeni",
-        //     //     "z.popis",
-        //     //     "fz.url_mala",
-        //     // ],
-        //     // [
-        //     //     "p.zvire_id" => $id,
-        //     //     "ORDER" => ["p.cas" => "DESC"]
-        //     // ]
-        // );
+
+        $manipulace = array();
+
+        // Očkování
+        $ockovani = Animal::getOckovaniById($id);
+        foreach ($ockovani as $ock){
+            array_push($manipulace,array(
+                "cas" => $ock["cas"],
+                "typ_manipulace" => "ockovani",
+                "detail" => $ock
+            ));
+        }
+        // Měření
+        $mereni = Animal::getAllMereniById($id);
+        foreach ($mereni as $mer){
+            array_push($manipulace,array(
+                "cas" => $mer["cas"],
+                "typ_manipulace" => "mereni",
+                "detail" => $mer
+            ));
+        }
+        // Prohlídka
+        $prohlidky = Animal::getAllProhlidkyBezMereniOckovaniById($id);
+        foreach ($prohlidky as $proh){
+            array_push($manipulace,array(
+                "cas" => $proh["cas"],
+                "typ_manipulace" => "prohlidka",
+                "detail" => $proh
+            ));
+        }
+        // Nalezení
+        $nalezeni = Animal::getNalezeniById($id);
+        if (isset($nalezeni)){
+            array_push($manipulace,array(
+                "cas" => $nalezeni["cas"],
+                "typ_manipulace" => "nalezeni",
+                "detail" => $nalezeni
+            ));
+        }
+
+        // Prodej
+        $prodej = Animal::getProdejById($id);
+        if (isset($prodej)){
+            array_push($manipulace,array(
+                "cas" => $prodej["cas"],
+                "typ_manipulace" => "prodej",
+                "detail" => $prodej
+            ));
+        }
+
+        // Umrtí
+        $umrti = Animal::getUmrtiById($id);
+        if (isset($umrti)){
+            array_push($manipulace,array(
+                "cas" => $umrti["cas"],
+                "typ_manipulace" => "umrti",
+                "detail" => $umrti
+            ));
+        }
+
+        usort($manipulace, function($a, $b) {
+            return strtotime($b['cas']) - strtotime($a['cas']);
+        });
+        
+        return $manipulace;
     }
 
 
