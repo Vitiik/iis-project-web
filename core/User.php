@@ -41,6 +41,14 @@ class User{
         ]);
     }
 
+    public static function setRole($uzivatel_id,$role_id){
+        global $db;
+        return $db->update("uzivatel_ma_role",[
+            "uzivatel_id" => $uzivatel_id,
+            "role_id" => $role_id,
+        ]);
+    }
+
     public static function changePassword($id,$heslo_nove){
         global $db;
         $heslo_hash = password_hash($heslo_nove,PASSWORD_BCRYPT);
