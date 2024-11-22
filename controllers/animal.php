@@ -52,11 +52,13 @@ $router->map("POST","/createAnimal",function(){
             "status" => "success",
             "message" => "Zvíře bylo přidáno do databáze",
             "data"=> array(
+                "id"=>$_POST["id"],
                 "jmeno"=>$_POST["jmeno"],
                 "zivocisny_druh" => $_POST["zivocisny_druh"],
                 "plemeno" => $_POST["plemeno"],
                 "pohlavi" => $_POST["pohlavi"],
-                "datum_narozeni" => $_POST["datum_narozeni"]
+                "datum_narozeni" => $_POST["datum_narozeni"],
+                "popis" =>$_POST["popis"]
                 )
         ));
     }
