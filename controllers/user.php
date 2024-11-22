@@ -78,38 +78,35 @@ $router->map("POST","/create-user",function(){
 
     $_POST = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($_POST["vytvorit"])){
-        if (User::getByEmail($_POST["email"]) == null){
-            echo json_encode(array(
-                "status" => "error",
-                "message" => "Uživatel s tímto emailem již existuje"
-            ));
-        }
-        
-        $response = User::createUser($_POST["jmeno"],$_POST["prijmeni"],$_POST["email"],$_POST["heslo"]);
-
-        if ($response == false){
-            echo json_encode(array(
-                "status" => "error",
-                "message" => "Nastala chyba při zápisu do databáze"
-            ));
-        } else {
-            $_SESSION["user_email"] = $_POST["email"];
-            echo json_encode(array(
-                "status" => "success",
-                "message" => "Uživatel byl přidán do databáze",
-                "redirect" => "/"
-            ));
-        }
+    if (User::getByEmail($_POST["email"]) == null){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Uživatel s tímto emailem již existuje"
+        ));
     }
+    
+    $response = User::createUser($_POST["jmeno"],$_POST["prijmeni"],$_POST["email"],$_POST["heslo"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        $_SESSION["user_email"] = $_POST["email"];
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Uživatel byl přidán do databáze",
+            "redirect" => "/"
+        ));
+    }
+    
 });
 
 $router->map("POST","/changePassword",function(){
     global $twig;
 
     $_POST = json_decode(file_get_contents('php://input'), true);
-
-    // if (isset($_POST["zmenit"])){
 
     $loggedInUser = User::getByEmail($_SESSION["user_email"]);
 
@@ -148,6 +145,4 @@ $router->map("POST","/changePassword",function(){
             "message" => "Nesprávné původní heslo"
         )); 
     }
-    
-    // }
 });
