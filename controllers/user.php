@@ -35,13 +35,28 @@ $router->map("POST","/login",function(){
                 if(password_verify($_POST["password"],$user["heslo"])){
                     $_SESSION["user_email"] = $user["email"];
                     //TODO: Zde přidat roli
-                    header("Location: /");
+                    // header("Location: /");
                     // dump($user);
+                    echo json_encode(array(
+                        "status" => "success",
+                        "message" => "Úspěšně přihlášen",
+                        "redirect" => "/"
+                    ));
                 }else{
-                    header("Location: /login");
+                    // header("Location: /login");
+                    echo json_encode(array(
+                        "status" => "error",
+                        "message" => "Špatné heslo",
+                        "redirect" => "/login"
+                    ));
                 }
             }else{
-                header("Location: /login");
+                // header("Location: /login");
+                echo json_encode(array(
+                    "status" => "error",
+                    "message" => "Na tento email není vytvořen žádný účet",
+                    "redirect" => "/login"
+                ));
             }
         }
     }
@@ -73,19 +88,64 @@ $router->map("GET","/muj-profil",function(){
     echo $twig->render('shelter/user.twig',["user"=>$user]);
 });
 
-$router->map("POST","/create-user",function(){
+$router->map("POST","/setRole",function(){
     global $twig;
 
     $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = User::setRole($_POST["uzivatel_id"],$_POST["role_id"]);
 
-    if (User::getByEmail($_POST["email"]) == null){
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Role byla úspěšně nastavena"
+        ));
+    }
+    
+});
+
+$router->map("POST","/overitUzivatele",function(){
+    global $twig;
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = User::overitUser($_POST["uzivatel_id"],$_POST["cas"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Uživatel byl úspěšně ověřen"
+        ));
+    }
+    
+});
+
+$router->map("POST","/create-user",function(){
+    global $twig;
+
+    // $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $isUser = User::getByEmail($_POST["email"]);
+
+    if ( $isUser != null){
         echo json_encode(array(
             "status" => "error",
             "message" => "Uživatel s tímto emailem již existuje"
         ));
+        return;
     }
     
-    $response = User::createUser($_POST["jmeno"],$_POST["prijmeni"],$_POST["email"],$_POST["heslo"]);
+    $response = User::createUser($_POST["jmeno"],$_POST["prijmeni"],$_POST["email"],$_POST["password"]);
 
     if ($response == false){
         echo json_encode(array(
@@ -115,6 +175,7 @@ $router->map("POST","/changePassword",function(){
             "status" => "error",
             "message" => "Nepřihlášený uživatel nemůže měnit heslo"
         )); 
+        return;
     }
 
     if(password_verify($_POST["stare_heslo"],$user["heslo"])){
@@ -124,6 +185,7 @@ $router->map("POST","/changePassword",function(){
                 "status" => "error",
                 "message" => "Nová hesla se neshodují"
             )); 
+            return;
         }
 
         $response = User::changePassword($loggedInUser["id"],$_POST["nove_heslo"]);
