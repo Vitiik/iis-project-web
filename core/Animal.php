@@ -17,6 +17,8 @@ class Animal{
                 "z.datum_narozeni",
                 "z.popis",
                 "fz.url_mala",
+            ],[
+                "ORDER" => ["z.id" => "DESC"]
             ]);
     }
 
@@ -172,7 +174,7 @@ class Animal{
 
     public static function getAllProhlidkyBezMereniOckovaniById($id){
         global $db;
-        return $db->get("prohlidka", [   
+        return $db->select("prohlidka", [   
             "cas",
             "zdravotni_stav",
             "zverolekar_id"

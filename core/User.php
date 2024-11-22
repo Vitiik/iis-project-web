@@ -41,4 +41,15 @@ class User{
         ]);
     }
 
+    public static function changePassword($id,$heslo_nove){
+        global $db;
+        $heslo_hash = password_hash($heslo_nove,PASSWORD_BCRYPT);
+
+        return $db->update("uzivatel",[
+            "heslo" => $heslo_nove,
+        ],[
+            "id" => $id
+        ]);
+    }
+
 }

@@ -36,7 +36,7 @@ $router->map("POST","/login",function(){
                     $_SESSION["user_email"] = $user["email"];
                     //TODO: Zde přidat roli
                     header("Location: /");
-                    dump($user);
+                    // dump($user);
                 }else{
                     header("Location: /login");
                 }
@@ -73,50 +73,75 @@ $router->map("POST","/create-user",function(){
     $_POST = json_decode(file_get_contents('php://input'), true);
 
     if (isset($_POST["vytvorit"])){
-        // $response = Manipulace::createUmrti($_POST["pricina"],$_POST["cas"],$_POST["zvire_id"]);
+        if (User::getByEmail($_POST["email"]) == null){
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Uživatel s tímto emailem již existuje"
+            ));
+        }
+        
+        $response = User::createUser($_POST["jmeno"],$_POST["prijmeni"],$_POST["email"],$_POST["heslo"]);
 
-        // if ($response == false){
-        //     echo json_encode(array(
-        //         "status" => "error",
-        //         "message" => "Nastala chyba při zápisu do databáze"
-        //     ));
-        // } else {
-        //     echo json_encode(array(
-        //         "status" => "success",
-        //         "message" => "Úmrtí bylo přidáno do databáze",
-        //         "data"=> array(
-        //             "pricina"=>$_POST["jmeno_zakaznika"],
-        //             "cas" => $_POST["cas"],
-        //             "zvire_id" => $_POST["zvire_id"]
-        //             )
-        //     ));
-        // }
+        if ($response == false){
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Nastala chyba při zápisu do databáze"
+            ));
+        } else {
+            $_SESSION["user_email"] = $_POST["email"];
+            echo json_encode(array(
+                "status" => "success",
+                "message" => "Uživatel byl přidán do databáze",
+                "redirect" => "/"
+            ));
+        }
     }
 });
 
-$router->map("POST","/change-password",function(){
+$router->map("POST","/changePassword",function(){
     global $twig;
 
     $_POST = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($_POST["zmenit"])){
-        // $response = Manipulace::createUmrti($_POST["pricina"],$_POST["cas"],$_POST["zvire_id"]);
+    // if (isset($_POST["zmenit"])){
 
-        // if ($response == false){
-        //     echo json_encode(array(
-        //         "status" => "error",
-        //         "message" => "Nastala chyba při zápisu do databáze"
-        //     ));
-        // } else {
-        //     echo json_encode(array(
-        //         "status" => "success",
-        //         "message" => "Úmrtí bylo přidáno do databáze",
-        //         "data"=> array(
-        //             "pricina"=>$_POST["jmeno_zakaznika"],
-        //             "cas" => $_POST["cas"],
-        //             "zvire_id" => $_POST["zvire_id"]
-        //             )
-        //     ));
-        // }
+    $loggedInUser = User::getByEmail($_SESSION["user_email"]);
+
+    if($loggedInUser == null) {
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nepřihlášený uživatel nemůže měnit heslo"
+        )); 
     }
+
+    if(password_verify($_POST["stare_heslo"],$user["heslo"])){
+    
+        if($_POST["nove_heslo"] != $_POST["nove_heslo_znovu"]){
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Nová hesla se neshodují"
+            )); 
+        }
+
+        $response = User::changePassword($loggedInUser["id"],$_POST["nove_heslo"]);
+
+        if ($response == false){
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Nastala chyba při zápisu do databáze"
+            ));
+        } else {
+            echo json_encode(array(
+                "status" => "success",
+                "message" => "Heslo bylo změněno"
+            ));
+        }
+    }else{
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nesprávné původní heslo"
+        )); 
+    }
+    
+    // }
 });
