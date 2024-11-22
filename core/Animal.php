@@ -126,6 +126,66 @@ class Animal{
         );
     }
 
+    public static function getZvireJeVolneById($id){
+        global $db;
+
+        // Step 1: Fetch all conflicting rezervace records for the specified zvire_id
+        $conflicting_reservations = $db->select("rezervace", [
+            "cas_zacatku",
+            "cas_konce"
+        ], [
+            "zvire_id" => $id
+        ]);
+
+        // Step 2: Prepare conditions to exclude conflicting intervals
+        $conflict_conditions = [];
+        foreach ($conflicting_reservations as $conflict) {
+            $conflict_conditions[] = [
+                "cas_zacatku" => $conflict["cas_zacatku"],
+                "cas_konce" => $conflict["cas_konce"]
+            ];
+        }
+
+        // Step 3: Fetch available times excluding conflicting intervals
+        $available_times = $db->select("zvire_je_volne", "*", [
+            "zvire_id" => $id,
+            "AND" => [
+                "OR # Exclude conflicting intervals" => [
+                    "cas_zacatku[!]" => array_column($conflict_conditions, 'cas_zacatku'),
+                    "cas_konce[!]" => array_column($conflict_conditions, 'cas_konce')
+                ],
+            ],
+        ]);
+
+        return $available_times;
+    }
+
+    public static function getManipulaceById($id){
+        global $db;
+        return NULL;
+        // return $db->select([
+        //         "prohlidka(p)",
+        //         "nalezeni(n)",
+        //         "prodej(pr)",
+        //         "umrti(u)"],"*"
+        //     // ],[
+        //     //     "z.id",
+        //     //     "z.jmeno",
+        //     //     "z.zivocisny_druh",
+        //     //     "z.plemeno",
+        //     //     "z.pohlavi",
+        //     //     "z.datum_narozeni",
+        //     //     "z.popis",
+        //     //     "fz.url_mala",
+        //     // ],
+        //     // [
+        //     //     "p.zvire_id" => $id,
+        //     //     "ORDER" => ["p.cas" => "DESC"]
+        //     // ]
+        // );
+    }
+
+
     public static function createAnimal($jmeno,$zivocisny_druh,$plemeno,$pohlavi,$datum_narozeni){
         global $db;
         $db->insert("zvire",[
