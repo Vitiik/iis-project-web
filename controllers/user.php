@@ -54,6 +54,12 @@ $router->map('GET', '/admin', function() {
     echo $twig->render('admin/index.twig',[]);
 });
 
+$router->map("GET","/registrace",function(){
+    global $twig;
+
+    echo $twig->render('admin/register.twig');
+});
+
 $router->map("GET","/muj-profil",function(){
     global $twig;
 
