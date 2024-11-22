@@ -323,22 +323,56 @@ class Animal{
         ]);
     }
 
-    public static function reserveAnimal($id_volne_casy, $zvire_id, $klient_id){
+    public static function reserveAnimal($id, $zvire_id, $klient_id){
         global $db;
 
-        foreach($id_volne_casy as $id){
-            $casy = $db->get("zvire_je_volne", [
-                "cas_zacatku",
-                "cas_konce"
-                ],["id" => $id]);
+        $casy = $db->get("zvire_je_volne", [
+            "cas_zacatku",
+            "cas_konce"
+            ],["id" => $id]);
 
-            $db->insert("rezervace",[
-                "cas_zacatku" => $casy["cas_zacatku"],
-                "cas_konce" => $casy["cas_konce"],
-                "zvire_id" => $zvire_id,
-                "klient_id" => $klient_id
-            ]);
-        }
+        return $db->insert("rezervace",[
+            "cas_zacatku" => $casy["cas_zacatku"],
+            "cas_konce" => $casy["cas_konce"],
+            "zvire_id" => $zvire_id,
+            "klient_id" => $klient_id
+        ]);
+        
     }
+
+    public static function acceptReservation($rezervace_id, $osetrovatel_id){
+        global $db;
+
+        return $db->update("rezervace",[
+            "schavalena" => 1,
+            "osetrovatel_id" => $osetrovatel_id
+        ],[
+            "id" => $rezervace_id
+        ]);
+    }
+
+    public static function zvireZapujceno($rezervace_id){
+        global $db;
+
+        return $db->update("rezervace",["zvire_zapujceno" => 1],["id" => $rezervace_id]);
+    }
+
+    public static function zvireVraceno($rezervace_id){
+        global $db;
+
+        return $db->update("rezervace",["zvire_vraceno" => 1],["id" => $rezervace_id]);
+    }
+
+    public static function createPozadavekNaProhlidku($zamereni, $osetrovatel_id, $zvire_id){
+        global $db;
+
+        return $db->insert("pozadavek_na_prohlidku",[
+            "zamereni" => $zamereni,
+            "osetrovatel_id" => $osetrovatel_id,
+            "zvire_id" => $zvire_id
+        ]);
+        
+    }
+
 
 }
