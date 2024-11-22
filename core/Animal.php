@@ -296,7 +296,7 @@ class Animal{
         return $manipulace;
     }
 
-    public static function editAnimal($_POST){
+    public static function editAnimal(){
         global $db;
         return $db->update("zvire",$_POST,["id" => $_POST["id"]]);
     }
