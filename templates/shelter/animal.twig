@@ -277,25 +277,36 @@ window.lightbox.init();
 
     <form class="ajax-form space-y-4" data-ajax-callback="updateReservations" action="/reserveAnimal" method="POST">
 
-        {% if zvire_je_volne|length == 0 %}
-            <p class="text-white">Nebyly nalezeny žádné dostupné termíny.</p>
-        {% endif %}
+        <p class="text-white {{zvire_je_volne|length == 0 ? "" : "hidden"}}" id="noReservationsText">Nebyly nalezeny žádné dostupné termíny.</p>
         <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
-        {% for volne in zvire_je_volne %}        
-        <div class="flex items-center px-4 border rounded border-gray-600">
-            <input id="checkbox-{{volne.id}}" type="checkbox" value="{{volne.id}}" name="id[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-{{volne.id}}" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex flex-row">{{volne.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}}<p class="ml-auto">{{volne.cas_zacatku|date("H:i")}} - {{volne.cas_konce|date("H:i")}}</p></label>
-            {% if is_pecovatel(user) %}
-            <a href="javascript:;" onclick="deleteReservation(this,{{volne.id}})" class="ml-4 text-red-400">Smazat</a>
-            {% endif %}
+        {% for volne in zvire_je_volne %}      
+        <div id="reservationsHolder">  
+            <div class="flex items-center px-4 border rounded border-gray-600">
+                <input id="checkbox-{{volne.id}}" type="checkbox" value="{{volne.id}}" name="id[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="checkbox-{{volne.id}}" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex flex-row">{{volne.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}}<p class="ml-auto">{{volne.cas_zacatku|date("H:i")}} - {{volne.cas_konce|date("H:i")}}</p></label>
+                {% if is_pecovatel(user) %}
+                <a href="javascript:;" onclick="deleteReservation(this,{{volne.id}})" class="ml-4 text-red-400">Smazat</a>
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
         <button {{zvire_je_volne|length == 0 ? "disabled" : ""}} type="submit" class="w-full disabled:bg-gray-600 disabled:hover:bg-gray-600 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rezervovat</button>
     </form>
 
     <script>
+        function reservationsCheck(){
+            var childsNum = $("#reservationsHolder").children("div").length;
+            if(childsNum == 0){
+                $("#reservationsHolder").parent().find("button").prop("disabled",true);
+                $("#noReservationsText").show();
+            }
+        }
+
         function updateReservations(data){
-            console.log(data);
+            data.data.forEach(element => {
+                $("#checkbox-"+element).parent().remove();
+            });
+            reservationsCheck();
         }
 
         function deleteReservation(el,reservation_id){
@@ -303,6 +314,7 @@ window.lightbox.init();
             postData("/deleteReservationTime",{"rezervace_id":reservation_id}).then((result)=>{
                 if(result.status == "success"){
                     $(el).parent().remove();
+                    reservationsCheck();
                 }
             }).done();
             }catch{
