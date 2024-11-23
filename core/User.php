@@ -39,7 +39,7 @@ class User{
                     'role' => []
                 ];
             }
-            if ($row['role'] == null) break;
+            if ($row['role'] == null) continue;
             $users[$row['id']]['role'][] = ["role_jmeno"=>$row['role'],"role_id"=>$row['role_id']];
         }
 
