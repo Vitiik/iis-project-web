@@ -275,7 +275,7 @@ window.lightbox.init();
     </button>
     {% endif %}
 
-    <form class="ajax-form space-y-4" action="/reserveAnimal" method="POST">
+    <form class="ajax-form space-y-4" data-ajax-callback="updateReservations" action="/reserveAnimal" method="POST">
 
         {% if zvire_je_volne|length == 0 %}
             <p class="text-white">Nebyly nalezeny žádné dostupné termíny.</p>
@@ -294,6 +294,10 @@ window.lightbox.init();
     </form>
 
     <script>
+        function updateReservations(data){
+            console.log(data);
+        }
+
         function deleteReservation(el,reservation_id){
             try{
             postData("/deleteReservationTime",{"rezervace_id":reservation_id}).then((result)=>{

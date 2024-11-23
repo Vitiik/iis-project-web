@@ -317,17 +317,17 @@
 {% embed 'shelter/partials/modal.twig' with {"id": "manage-users", "title":"Správa uživatelů", "size" : "4xl"} %}
     {% block modal_body %}
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="users-tab" data-tabs-toggle="#users-tab-content" role="tablist">
                 <li class="me-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Uživatelé</button>
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="pomocnici-tab" data-tabs-target="#users" type="button" role="tab" aria-controls="profile" aria-selected="false">Uživatelé</button>
                 </li>
                 <li class="me-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dobrovolnící</button>
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="pomocnici-tab" data-tabs-target="#pomocnici" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dobrovolnící</button>
                 </li>
             </ul>
         </div>
-        <div id="default-tab-content">
-            <div class="hidden" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div id="users-tab-content">
+            <div class="hidden" id="users" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -380,7 +380,7 @@
                     </table>
                 </div>
             </div>
-            <div class="hidden" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">   
+            <div class="hidden" id="pomocnici" role="tabpanel" aria-labelledby="dashboard-tab">   
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
