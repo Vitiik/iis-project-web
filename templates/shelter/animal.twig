@@ -151,7 +151,7 @@
                     <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
                     <path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" />
                     </svg>
-                    Rezervovat zde
+                    Termíny rezervace
                 </button>
                 {% endif %}
                 {% if is_vet(user) %}
@@ -161,15 +161,6 @@
                     </svg>
 
                     Přidat událost
-                </button>
-                {% endif %}
-                {% if is_pecovatel(user) %}
-                <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="create-reserve-modal" data-modal-toggle="create-reserve-modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                    <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
-                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" />
-                    </svg>
-                    Vytvořit rezervace
                 </button>
                 {% endif %}
             </div>
@@ -256,7 +247,7 @@ window.lightbox = new PhotoSwipeLightbox({
 window.lightbox.init();
 </script>
 
-{% embed 'shelter/partials/modal.twig' with {"id": "create-reserve", "title":"Vytvořit rezervace na zvíře"} %}
+{% embed 'shelter/partials/modal.twig' with {"id": "create-reserve", "title":"Přidat termín rezervace","z_index":"60"} %}
     {% block modal_body %}
     <form class="ajax-form space-y-4" action="/addReservationTimes" method="POST">
         <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
@@ -274,6 +265,16 @@ window.lightbox.init();
 
 {% embed 'shelter/partials/modal.twig' with {"id": "reserve", "title":"Rezervovat zvíře"} %}
     {% block modal_body %}
+    {% if is_pecovatel(user) %}
+    <button class="flex flex-row p-2 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="create-reserve-modal" data-modal-toggle="create-reserve-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm.75-11.25a.75.75 0 0 0-1.5 0v2.5h-2.5a.75.75 0 0 0 0 1.5h2.5v2.5a.75.75 0 0 0 1.5 0v-2.5h2.5a.75.75 0 0 0 0-1.5h-2.5v-2.5Z" clip-rule="evenodd" />
+        </svg>
+
+        Přidat termín rezervace
+    </button>
+    {% endif %}
+
     <form class="ajax-form space-y-4" action="/reserveAnimal" method="POST">
 
         {% if zvire_je_volne|length == 0 %}
@@ -284,10 +285,27 @@ window.lightbox.init();
         <div class="flex items-center px-4 border rounded border-gray-600">
             <input id="checkbox-{{volne.id}}" type="checkbox" value="{{volne.id}}" name="id[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
             <label for="checkbox-{{volne.id}}" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex flex-row">{{volne.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}}<p class="ml-auto">{{volne.cas_zacatku|date("H:i")}} - {{volne.cas_konce|date("H:i")}}</p></label>
+            {% if is_pecovatel(user) %}
+            <a href="javascript:;" onclick="deleteReservation(this,{{volne.id}})" class="ml-4 text-red-400">Smazat</a>
+            {% endif %}
         </div>
         {% endfor %}
         <button {{zvire_je_volne|length == 0 ? "disabled" : ""}} type="submit" class="w-full disabled:bg-gray-600 disabled:hover:bg-gray-600 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rezervovat</button>
     </form>
+
+    <script>
+        function deleteReservation(el,reservation_id){
+            try{
+            postData("/deleteReservationTime",{"rezervace_id":reservation_id}).then((result)=>{
+                if(result.status == "success"){
+                    $(el).parent().remove();
+                }
+            }).done();
+            }catch{
+
+            }
+        }
+    </script>
 
     {% endblock %}
 {% endembed %}

@@ -336,6 +336,9 @@
                                     Celé jméno
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    E-mail
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Role
                                 </th>
                                 <th scope="col" class="px-6 py-3">
@@ -349,6 +352,10 @@
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{uzivatel.jmeno}} {{uzivatel.prijmeni}}
                                 </th>
+                                <td class="px-6 py-4">
+                                    {{uzivatel.email}}
+                                </td>
+
                                 <td class="px-6 py-4" id="roles-holder">
                                     {% for role in uzivatel.role %}
                                         <div class="flex flex-row gap-1 items-center">
