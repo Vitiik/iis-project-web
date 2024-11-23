@@ -21,6 +21,7 @@ class User{
             "u.id",
             "u.jmeno",
             "u.prijmeni",
+            "u.email",
             "r.jmeno(role)",
             "r.id(role_id)"
         ]);
