@@ -113,6 +113,13 @@ class User{
 
     public static function setRole($uzivatel_id,$role_id){
         global $db;
+        if ($role_id == 1){
+            $db->update("uzivatel",[
+                "overen_kdy" => date("Y-m-d h:i:sa"),
+            ],[
+                "id" => $uzivatel_id
+            ]);
+        }
         return $db->insert("uzivatel_ma_role",[
             "uzivatel_id" => $uzivatel_id,
             "role_id" => $role_id
@@ -121,6 +128,13 @@ class User{
 
     public static function deleteRole($uzivatel_id,$role_id){
         global $db;
+        if ($role_id == 1){
+            $db->update("uzivatel",[
+                "overen_kdy" => NULL,
+            ],[
+                "id" => $uzivatel_id
+            ]);
+        }
         return $db->delete("uzivatel_ma_role",[
             "uzivatel_id" => $uzivatel_id,
             "role_id" => $role_id
