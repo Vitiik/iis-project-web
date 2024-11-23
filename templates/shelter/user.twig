@@ -21,6 +21,12 @@
                 <p class="text-red-400">Dobrovolník není ověřen!</p>
                 {% endif %}
             {% endif %}
+            {% if is_dobrovolnik(user) and user.overen_kdy != null %}
+            <button data-modal-target="moje-venceni-modal" data-modal-toggle="moje-venceni-modal" class="mb-16 flex flex-row p-2 bg-gray-800 text-white rounded shadow items-center gap-2">
+                <svg class="size-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M13 6C14.1046 6 15 5.10457 15 4C15 2.89543 14.1046 2 13 2C11.8955 2 11 2.89543 11 4C11 5.10457 11.8955 6 13 6ZM11.0528 6.60557C11.3841 6.43992 11.7799 6.47097 12.0813 6.68627L13.0813 7.40056C13.3994 7.6278 13.5559 8.01959 13.482 8.40348L12.4332 13.847L16.8321 20.4453C17.1384 20.9048 17.0143 21.5257 16.5547 21.8321C16.0952 22.1384 15.4743 22.0142 15.168 21.5547L10.5416 14.6152L9.72611 13.3919C9.58336 13.1778 9.52866 12.9169 9.57338 12.6634L10.1699 9.28309L8.38464 10.1757L7.81282 13.0334C7.70445 13.575 7.17759 13.9261 6.63604 13.8178C6.09449 13.7094 5.74333 13.1825 5.85169 12.641L6.51947 9.30379C6.58001 9.00123 6.77684 8.74356 7.05282 8.60557L11.0528 6.60557ZM16.6838 12.9487L13.8093 11.9905L14.1909 10.0096L17.3163 11.0513C17.8402 11.226 18.1234 11.7923 17.9487 12.3162C17.7741 12.8402 17.2078 13.1234 16.6838 12.9487ZM6.12844 20.5097L9.39637 14.7001L9.70958 15.1699L10.641 16.5669L7.87159 21.4903C7.60083 21.9716 6.99111 22.1423 6.50976 21.8716C6.0284 21.6008 5.85768 20.9911 6.12844 20.5097Z" fill="#ffffff"></path> </g></svg>
+                Moje historie venčení
+            </button>
+            {% endif %}
             <a href="/logout" class="flex flex-row gap-2 p-2 bg-red-700 text-white rounded shadow items-center">
                 <svg class="fill-white size-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6666 8L17.75 10.5L15.6666 8Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6666 13L17.75 10.5L15.6666 13Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16.5 10.5L10 10.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <line x1="4" y1="3.5" x2="13" y2="3.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></line> <line x1="4" y1="17.5" x2="13" y2="17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></line> <path d="M13 3.5V7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M13 13.5V17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M4 3.5L4 17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> </g></svg>
 
@@ -36,6 +42,57 @@
         <div></div>
     </div>
 </div>
+
+
+{% embed 'shelter/partials/modal.twig' with {"id": "moje-venceni", "title":"Moje historie venčení", "size" : "4xl"} %}
+    {% block modal_body %}
+      <div class="relative overflow-x-auto">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                      <th scope="col" class="px-6 py-3">
+                          Datum a čas
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Zvíře
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Stav
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for zadost in historieRezervaci %}
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4">
+                            {{zadost.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}} {{zadost.cas_zacatku|date("H:i")}} - {{zadost.cas_konce|date("H:i")}}
+                      </td>
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          {{zadost.plemeno}} - {{ zadost.jmeno }}
+                      </th>
+                      <td class="px-6 py-4">
+                          {% if zadost.schvalena == 0 %}
+                            <p class="text-xs text-orange-400 reservation_status">Čeká na schválení</p>
+                          {% else %}
+                            {% if zadost.zvire_zapujceno == 0 %}
+                                <p class="text-xs text-green-400 reservation_status">Schváleno</p>
+                            {% else %}
+                                {% if zadost.zvire_vraceno == 0 %}
+                                    <p class="text-xs text-blue-400 reservation_status">Zvíře půjčeno</p>
+                                {% else %}
+                                    <p class="text-xs text-green-400 reservation_status">Dokončeno</p>
+                                {% endif %}
+                            {% endif %}
+                          {% endif %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+    {% endblock %}
+{% endembed %}
+
 
 {% embed 'shelter/partials/modal.twig' with {"id": "change-password", "title":"Změnit heslo"} %}
     {% block modal_body %}
