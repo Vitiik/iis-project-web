@@ -64,6 +64,7 @@ frms.forEach(frm => {
     var submitButton = form.children("button");
     var ourModalId = form.parent().parent().parent().parent().attr("id");
     var callbackName = form.data("ajax-callback");
+    var timeouts = []
     
     submitButton.prepend(spinnerTemplate);
     var spinner = submitButton.children(".spinner");
@@ -88,18 +89,16 @@ frms.forEach(frm => {
         try {
             postData(actionUrl,formData).then((result)=>{
                 if(result.status == "success"){
-                    ajaxOnSuccess(ourModalId,result);
+                    ajaxOnSuccess(ourModalId,result,timeouts);
                     window[callbackName](result);
                 }
                 if(result.status == "error"){
-                    ajaxOnError(ourModalId,result);
+                    ajaxOnError(ourModalId,result,timeouts);
                 }
             }).done();
         } catch (error) {
-            ajaxOnError(ourModalId,null);
+            timeouts.push(setTimeout(ajaxOnError,1000,ourModalId,timeouts,null));
         }
-        console.log(formData);
-
     }
     
     submitButton.prop("disabled", false);
@@ -108,7 +107,10 @@ frms.forEach(frm => {
     });
 });
 
-function ajaxOnError(modalId,result) {
+function ajaxOnError(modalId,result,timeouts) {
+    for (var i=0; i<timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+    }
     document.getElementById(modalId).dispatchEvent(
             new KeyboardEvent("keydown", {
             altKey: false,
@@ -132,7 +134,10 @@ function ajaxOnError(modalId,result) {
         }
     }
 
-function ajaxOnSuccess(modalId,result) {
+function ajaxOnSuccess(modalId,result,timeouts) {
+    for (var i=0; i<timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+    }
     document.getElementById(modalId).dispatchEvent(
             new KeyboardEvent("keydown", {
             altKey: false,
