@@ -39,6 +39,7 @@ class User{
                     'role' => []
                 ];
             }
+            if ($row['role'] == null) break;
             $users[$row['id']]['role'][] = ["role_jmeno"=>$row['role'],"role_id"=>$row['role_id']];
         }
 
@@ -79,6 +80,12 @@ class User{
         ],[
             "id" => $id
         ]);
+    }
+
+    public static function deleteUser($id){
+        global $db;
+        $db->delete("uzivatel_ma_role",["uzivatel_id" => $id]);
+        return $db->delete("uzivatel",["id" => $id]);
     }
 
     public static function getRole($uzivatel_id){
