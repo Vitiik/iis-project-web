@@ -14,8 +14,12 @@
         </svg>
             <h1 class="text-center font-bold text-2xl">{{user.jmeno}} {{user.prijmeni}}</h1>
             <h2 class="text-center">{{user.email}}</h2>
-            {% if user.overen_kdy != null %}
-            <p class="text-green-700">Uživatel byl ověřen: {{user.overen_kdy|date("j. n. Y")}}</p>
+            {% if is_dobrovolnik(user) and is_admin(user) == false %}
+                {% if user.overen_kdy != null %}
+                <p class="text-green-700">Dobrovolník byl ověřen: {{user.overen_kdy|date("j. n. Y")}}</p>
+                {% else %}
+                <p class="text-red-400">Dobrovolník není ověřen!</p>
+                {% endif %}
             {% endif %}
             <a href="/logout" class="flex flex-row gap-2 p-2 bg-red-700 text-white rounded shadow items-center">
                 <svg class="fill-white size-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6666 8L17.75 10.5L15.6666 8Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6666 13L17.75 10.5L15.6666 13Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16.5 10.5L10 10.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <line x1="4" y1="3.5" x2="13" y2="3.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></line> <line x1="4" y1="17.5" x2="13" y2="17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></line> <path d="M13 3.5V7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M13 13.5V17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M4 3.5L4 17.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> </g></svg>
