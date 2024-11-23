@@ -14,15 +14,31 @@ class User{
 
     public static function getAllUsers(){
         global $db;
-        return $db->select("uzivatel(u)", [
+        $results = $db->select("uzivatel(u)", [
             "[>]uzivatel_ma_role(umr)" => ["u.id" => "uzivatel_id"],
             "[>]role(r)" => ["umr.role_id" => "id"]
         ], [
             "u.id",
             "u.jmeno",
             "u.prijmeni",
-            "r.jmeno(role)"
+            "r.jmeno(role)",
+            "r.id(role_id)"
         ]);
+
+        $users = [];
+        foreach ($results as $row) {
+            if (!isset($users[$row['id']])) {
+                $users[$row['id']] = [
+                    'id' => $row['id'],
+                    'jmeno' => $row['jmeno'],
+                    'prijmeni' => $row['prijmeni'],
+                    'roles' => []
+                ];
+            }
+            $users[$row['id']]['roles'][$row['role_id']] =  $row['role'];
+        }
+
+        return array_values($users);
     }
 
     public static function getByEmail(string $user_email){
@@ -68,9 +84,9 @@ class User{
 
     public static function setRole($uzivatel_id,$role_id){
         global $db;
-        return $db->update("uzivatel_ma_role",[
+        return $db->insert("uzivatel_ma_role",[
             "uzivatel_id" => $uzivatel_id,
-            "role_id" => $role_id,
+            "role_id" => $role_id
         ]);
     }
 

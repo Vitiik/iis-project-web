@@ -68,7 +68,7 @@ $router->map('GET', '/admin', function() {
     global $twig, $db;
     admin_kick();
 
-    echo $twig->render('admin/index.twig',[]);
+    echo $twig->render('shelter/index.twig',[]);
 });
 
 $router->map("GET","/registrace",function(){
@@ -158,6 +158,7 @@ $router->map("POST","/create-user",function(){
         header("Location: /registrace");
     } else {
         $_SESSION["user_email"] = $_POST["email"];
+        User::setRole(User::getByEmail($_POST["email"])["id"],4);
         // echo json_encode(array(
         //     "status" => "success",
         //     "message" => "Uživatel byl přidán do databáze",
