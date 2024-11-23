@@ -5,32 +5,15 @@
 
 {% block content %}
 
+    <div class="relative rounded-lg w-full h-96 flex flex-col gap-4 items-center justify-center">
+        <div class="sepia absolute z-[-10] w-full h-full bg-cover bg-[center_bottom_-22rem]" style="background-image: url('https://as1.ftcdn.net/v2/jpg/06/22/74/42/1000_F_622744204_XiEGfOBLzRBhsSHZihicBsKID5qSnZef.jpg')"></div>
 
-    <p>Pomáháme zvířatům najít nový domov</p>
-    <div class="rounded-lg w-full h-96 bg-cover flex flex-col gap-4 items-center justify-center bg-[center_bottom_-22rem]" style="background-image: url('https://as1.ftcdn.net/v2/jpg/06/22/74/42/1000_F_622744204_XiEGfOBLzRBhsSHZihicBsKID5qSnZef.jpg')">
-        <h2 class="text-lg">Dejte zvířatům druhou šanci</h2>
-        <a href="/zvirata" class="p-4 bg-blue-500 text-white rounded-lg shadow-lg">Adoptujte mazlíčka</a>
+        <h2 class="uppercase font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)] text-2xl">Pomáháme zvířatům najít nový domov</h2>
+        <a href="/zvirata" class="p-4 text-xl bg-blue-500 text-white rounded-lg shadow-lg">Naše zvířata</a>
     </div>
-        <section id="about">
-            <h2>O nás</h2>
-            <p>Jsme nezisková organizace, která pomáhá opuštěným a týraným zvířatům. Naším cílem je najít jim milující domov a zajistit, aby měla lepší budoucnost.</p>
-        </section>
-        <section id="animals">
-            <h2>Naši mazlíčci</h2>
-            <p>Podívejte se na zvířata, která čekají na nový domov. Každý z nich potřebuje lásku a péči.</p>
-            <p><i>(Zde může být galerie zvířat nebo odkaz na seznam.)</i></p>
-        </section>
-        <section id="contact">
-            <h2>Kontaktujte nás</h2>
-            <div class="contact-form">
-                <form>
-                    <input type="text" name="name" placeholder="Vaše jméno" required>
-                    <input type="email" name="email" placeholder="Váš email" required>
-                    <textarea name="message" rows="5" placeholder="Vaše zpráva" required></textarea>
-                    <button type="submit">Odeslat</button>
-                </form>
-            </div>
-        </section>
-
+    <div class="mt-8 flex flex-col items-center justify-center gap-2 h-48">
+        <h2 class="text-center text-xl uppercase">Naše motto</h2>
+        <p class="text-center text-base italic w-1/2">Jsme nezisková organizace, která pomáhá opuštěným a týraným zvířatům.<br>Naším cílem je najít jim milující domov a zajistit, aby měla lepší budoucnost.</p>
+    </div>
 
 {% endblock %}
