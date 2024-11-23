@@ -16,7 +16,7 @@
             </svg>  
             Žádosti o rezervace
             {% if zadosti|length > 0 %}
-            <span class="text-sm font-medium me-2 px-2.5 py-0.5 rounded bg-red-800 text-red-200">{{zadosti|length}}</span>
+            <span id="animal-requests-number" class="text-sm font-medium me-2 px-2.5 py-0.5 rounded bg-red-800 text-red-200">{{zadosti|length}}</span>
             {% endif %}
         </button>
 
@@ -183,6 +183,12 @@
             try{
                 postData("/zvireVraceno",{"rezervace_id":id}).then((result)=>{
                     if(result.status == "success"){
+                        var oldNumber = $("#animal-requests-number").text();
+                        var newNumber = Number(oldNumber) - 1;
+                        if(newNumber == 0){
+                            $("#animal-requests-number").hide();
+                        }
+                        $("#animal-requests-number").text(newNumber);
                         $(el).parent().parent().parent().remove();
                     }else{
                         controlsContainer.show();
