@@ -106,6 +106,17 @@ class User{
         return $db->delete("uzivatel",["id" => $id]);
     }
 
+    public static function getAllRezervaceById($id){
+        global $db;
+        return $db->select("rezervace(r)", [
+            "[>]zvire(z)" => ["zvire_id" => "id"]
+        ], 
+            "*"
+        ,[
+            "r.klient_id"=>$id
+        ]);
+    }
+
     public static function getRole($uzivatel_id){
         global $db;
         return $db->select("role",["[>]uzivatel_ma_role"=>["id"=>"role_id"]],["role.id(role_id)","jmeno(role_jmeno)"],["uzivatel_id"=>$uzivatel_id]);

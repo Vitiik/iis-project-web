@@ -81,6 +81,7 @@ $router->map("GET","/muj-profil",function(){
     global $twig;
 
     $user = User::getLoggedInUser();
+    $historieRezervaci = User::getAllRezervaceById($user["id"]);
 
     if($user == null){
         header("Location: /");
