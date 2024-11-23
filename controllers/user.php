@@ -111,6 +111,27 @@ $router->map("POST","/setRole",function(){
     
 });
 
+$router->map("POST","/deleteRole",function(){
+    global $twig;
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = User::deleteRole($_POST["uzivatel_id"],$_POST["role_id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Role byla úspěšně smazána"
+        ));
+    }
+    
+});
+
 $router->map("POST","/overitUzivatele",function(){
     global $twig;
 
