@@ -34,6 +34,8 @@ class User{
                     'id' => $row['id'],
                     'jmeno' => $row['jmeno'],
                     'prijmeni' => $row['prijmeni'],
+                    'email' => $row['email'],
+                    'overen_kdy' => $row['overen_kdy'],
                     'role' => []
                 ];
             }
