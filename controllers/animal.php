@@ -167,10 +167,10 @@ $router->map("POST","/acceptReservation",function(){
     }
 });
 
-$router->map("POST","/deleteReservation",function(){
+$router->map("POST","/deleteReservationTime",function(){
     $_POST = json_decode(file_get_contents('php://input'), true);
     
-    $response = Animal::deleteReservation($_POST["rezervace_id"]);
+    $response = Animal::deleteReservationTime($_POST["rezervace_id"]);
 
     if ($response == false){
         echo json_encode(array(
@@ -180,7 +180,7 @@ $router->map("POST","/deleteReservation",function(){
     } else {
         echo json_encode(array(
             "status" => "success",
-            "message" => "Rezervace byla úspěčně smazána"
+            "message" => "Čas pro rezervaci byl úspěčně smazána"
         ));
     }
 });
