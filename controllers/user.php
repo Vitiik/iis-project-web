@@ -116,7 +116,7 @@ $router->map("POST","/overitUzivatele",function(){
 
     $_POST = json_decode(file_get_contents('php://input'), true);
     
-    $response = User::overitUser($_POST["uzivatel_id"],$_POST["cas"]);
+    $response = User::overitUser($_POST["uzivatel_id"]);
 
     if ($response == false){
         echo json_encode(array(
@@ -184,7 +184,7 @@ $router->map("POST","/changePassword",function(){
         return;
     }
 
-    if(password_verify($_POST["stare_heslo"],$user["heslo"])){
+    if(password_verify($_POST["stare_heslo"],$loggedInUser["heslo"])){
     
         if($_POST["nove_heslo"] != $_POST["nove_heslo_znovu"]){
             echo json_encode(array(

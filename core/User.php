@@ -32,10 +32,10 @@ class User{
                     'id' => $row['id'],
                     'jmeno' => $row['jmeno'],
                     'prijmeni' => $row['prijmeni'],
-                    'roles' => []
+                    'role' => []
                 ];
             }
-            $users[$row['id']]['roles'][$row['role_id']] =  $row['role'];
+            $users[$row['id']]['role'][] = ["role_jmeno"=>$row['role'],"role_id"=>$row['role_id']];
         }
 
         return array_values($users);
@@ -68,7 +68,7 @@ class User{
         ]);
     }
 
-    public static function overitUser($id,$cas){
+    public static function overitUser($id){
         global $db;
         return $db->update("uzivatel",[
             "overen_kdy" => date("Y-m-d h:i:sa"),
@@ -95,7 +95,7 @@ class User{
         $heslo_hash = password_hash($heslo_nove,PASSWORD_BCRYPT);
 
         return $db->update("uzivatel",[
-            "heslo" => $heslo_nove,
+            "heslo" => $heslo_hash,
         ],[
             "id" => $id
         ]);
