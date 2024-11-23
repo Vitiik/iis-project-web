@@ -303,13 +303,15 @@ class Animal{
 
     public static function createAnimal($jmeno,$zivocisny_druh,$plemeno,$pohlavi,$datum_narozeni){
         global $db;
-        return $db->insert("zvire",[
+        $response = $db->insert("zvire",[
             "jmeno" => $jmeno,
             "zivocisny_druh" => $zivocisny_druh,
             "plemeno" => $plemeno,
             "pohlavi" => $pohlavi,
             "datum_narozeni" => $datum_narozeni
         ]);
+        if ($response == false) return false;
+        return $db->id();
     }
 
     public static function createRozvrhProRezervovani($cas_zacatku, $cas_konce, $zvire_id, $osetrovatel_id){
