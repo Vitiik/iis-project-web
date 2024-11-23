@@ -7,7 +7,7 @@ use Core\UploadException;
 $router->map("POST","/nahratObrazekZvirete",function(){
     global $db;
 
-    $_POST = json_decode(file_get_contents('php://input'), true);
+    //$_POST = json_decode(file_get_contents('php://input'), true); Non-ajax
     
     $images = reArrayFiles($_FILES["image_files"]);
 
@@ -19,16 +19,19 @@ $router->map("POST","/nahratObrazekZvirete",function(){
             $newImagePaths = ImageUploader::uploadZvireImage($_POST["zvire_id"],$nextImageId,$image);
             $response = AnimalImage::createAnimalImage($_POST["zvire_id"],$newImagePaths);
             if ($response == false){
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
                 echo json_encode(array(
                     "status" => "error",
                     "message" => "Nastala chyba při vytváření obrázku zvířete"
                 ));
             } else {
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                /*
                 echo json_encode(array(
                     "status" => "success",
                     "message" => "Obrázek zvíře byl vytvořen",
                     "data"=> ""
-                ));
+                ));*/
             }
         }catch (UploadException $e){
             dump($e);

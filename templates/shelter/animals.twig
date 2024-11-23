@@ -96,7 +96,7 @@
                           {{zadost.jmeno}} {{zadost.prijmeni}}
                       </td>
                       <td class="px-6 py-4">
-                          {{zadost.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}} {{zadost.cas_zacatku|date("H:m")}} - {{zadost.cas_konce|date("H:m")}}
+                          {{zadost.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}} {{zadost.cas_zacatku|date("H:i")}} - {{zadost.cas_konce|date("H:i")}}
                       </td>
                       <td class="px-6 py-4 flex flex-row gap-2">
                         <div role="status" class="spinner hidden">

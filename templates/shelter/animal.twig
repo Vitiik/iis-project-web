@@ -282,11 +282,10 @@ window.lightbox.init();
         <input type="text" class="hidden" value="{{zvire.id}}" name="zvire_id">
         {% for volne in zvire_je_volne %}        
         <div class="flex items-center px-4 border rounded border-gray-600">
-            <input id="checkbox-{{volne.id}}" type="checkbox" value="{{volne.id}}" name="test[{{volne.id}}]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-            <label for="checkbox-{{volne.id}}" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex flex-row">{{volne.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}}<p class="ml-auto">{{volne.cas_zacatku|date("H:m")}} - {{volne.cas_konce|date("H:m")}}</p></label>
+            <input id="checkbox-{{volne.id}}" type="checkbox" value="{{volne.id}}" name="id[]" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+            <label for="checkbox-{{volne.id}}" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300 flex flex-row">{{volne.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}}<p class="ml-auto">{{volne.cas_zacatku|date("H:i")}} - {{volne.cas_konce|date("H:i")}}</p></label>
         </div>
         {% endfor %}
-
         <button {{zvire_je_volne|length == 0 ? "disabled" : ""}} type="submit" class="w-full disabled:bg-gray-600 disabled:hover:bg-gray-600 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rezervovat</button>
     </form>
 

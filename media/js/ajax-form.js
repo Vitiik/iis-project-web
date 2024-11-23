@@ -74,7 +74,15 @@ frms.forEach(frm => {
         submitButton.prop("disabled", true);
         var actionUrl = form.attr("action");
         var formData = form.serializeArray().reduce(function(obj, item) {
-            obj[item.name] = item.value;
+            if(item.name.includes("[]")){
+                if(obj[item.name.replace("[]","")] == undefined){
+                    obj[item.name.replace("[]","")] = [item.value];
+                }else{
+                    obj[item.name.replace("[]","")].push(item.value);
+                }
+            }else{
+                obj[item.name] = item.value;
+            }
             return obj;
         }, {});
         try {
@@ -90,6 +98,8 @@ frms.forEach(frm => {
         } catch (error) {
             ajaxOnError(ourModalId,null);
         }
+        console.log(formData);
+
     }
     
     submitButton.prop("disabled", false);
