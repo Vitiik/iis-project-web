@@ -46,6 +46,11 @@ class User{
         return array_values($users);
     }
 
+    public static function getAllRoles(){
+        global $db;
+        return $db->select("role", "*");
+    }
+
     public static function getByEmail(string $user_email){
         global $db;
         $user = $db->get("uzivatel","*",["email"=>$user_email]);
@@ -97,7 +102,7 @@ class User{
         ],[
             "zverolekar_id" => $id
         ]);
-        
+
         return $db->delete("uzivatel",["id" => $id]);
     }
 
