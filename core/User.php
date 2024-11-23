@@ -85,6 +85,19 @@ class User{
     public static function deleteUser($id){
         global $db;
         $db->delete("uzivatel_ma_role",["uzivatel_id" => $id]);
+
+        $db->update("rezervace",[
+            "osetrovatel_id" => NULL,
+        ],[
+            "osetrovatel_id" => $id
+        ]);
+
+        $db->update("prohlidka",[
+            "zverolekar_id" => NULL,
+        ],[
+            "zverolekar_id" => $id
+        ]);
+        
         return $db->delete("uzivatel",["id" => $id]);
     }
 

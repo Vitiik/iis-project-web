@@ -132,6 +132,27 @@ $router->map("POST","/overitUzivatele",function(){
     
 });
 
+$router->map("POST","/deleteUser",function(){
+    global $twig;
+
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = User::deleteUser($_POST["uzivatel_id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při práci s databází"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Uživatel byl úspěšně smazán"
+        ));
+    }
+    
+});
+
 $router->map("POST","/create-user",function(){
     global $twig;
 
