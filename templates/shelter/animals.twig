@@ -9,6 +9,17 @@
     <h1 class="text-2xl">Naše zvířata</h1>
     
     <div class="ml-auto flex flex-row gap-2">
+        <button data-modal-target="manage-reserve-requests-modal" data-modal-toggle="manage-reserve-requests-modal" class="flex flex-row p-2 bg-gray-800 text-white rounded shadow items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+            <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
+            <path fill-rule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" />
+            </svg>  
+            Žádosti o rezervace
+            {% if zadosti|length > 0 %}
+            <span class="text-sm font-medium me-2 px-2.5 py-0.5 rounded bg-red-800 text-red-200">{{zadosti|length}}</span>
+            {% endif %}
+        </button>
+
         <button data-modal-target="manage-users-modal" data-modal-toggle="manage-users-modal" class="flex flex-row p-2 bg-gray-800 text-white rounded shadow items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
             <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
@@ -33,6 +44,159 @@
     {% endfor %}
 </div>
 
+
+{% embed 'shelter/partials/modal.twig' with {"id": "manage-reserve-requests", "title":"Žádosti o rezervace", "size" : "4xl"} %}
+    {% block modal_body %}
+      <div class="relative overflow-x-auto">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                      <th scope="col" class="px-6 py-3 w-[150px]">
+                          Stav
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Zvíře
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Celé jméno
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Čas
+                      </th>
+                      <th scope="col" class="px-6 py-3">
+                          Akce
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for zadost in zadosti %}
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4">
+                          {% if zadost.schvalena == 0 %}
+                            <p class="text-xs text-orange-400 reservation_status">Čeká na schválení</p>
+                          {% else %}
+                            {% if zadost.zvire_zapujceno == 0 %}
+                                <p class="text-xs text-green-400 reservation_status">Schváleno</p>
+                            {% else %}
+                                {% if zadost.zvire_vraceno == 0 %}
+                                    <p class="text-xs text-blue-400 reservation_status">Zvíře půjčeno</p>
+                                {% endif %}
+                            {% endif %}
+                          {% endif %}
+                      </td>
+                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                          {{zadost.plemeno}} - {{ zadost.zvire_jmeno }}
+                      </th>
+                      <td class="px-6 py-4">
+                          {{zadost.jmeno}} {{zadost.prijmeni}}
+                      </td>
+                      <td class="px-6 py-4">
+                          {{zadost.cas_zacatku|date("D j. n.")|replace({'Mon':'pondělí','Tue':'úterý','Wed':'středa','Thu':'čtvrtek','Fri':'pátek','Sat':'sobota','Sun':'neděle'})}} {{zadost.cas_zacatku|date("H:m")}} - {{zadost.cas_konce|date("H:m")}}
+                      </td>
+                      <td class="px-6 py-4 flex flex-row gap-2">
+                        <div role="status" class="spinner hidden">
+                            <svg aria-hidden="true" class="inline w-4 h-4 text-gray-200 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                            </svg>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                        
+                        <div id="tools_1" class="{{zadost.schvalena == 0 ? "" : "hidden"}}">
+                          <a href="javascript:;" onclick="acceptReservation(this,{{zadost.id}})" class="text-green-400">Potvrdit</a>
+                          <a href="" class="text-red-400">Zamítnout</a>
+                        </div>
+                        <div id="tools_2" class="{{zadost.schvalena == 0 ? "hidden" : ""}}">
+                          <a href="javascript:;" onclick="zvirePujceno(this,{{zadost.id}})" class="text-blue-400">Vyzvednout</a>
+                        </div>
+                        <div id="tools_3" class="{{zadost.zvire_pujceno == 0 ? "hidden" : ""}}">
+                          <a href="javascript:;" onclick="zvireVraceno(this,{{zadost.id}})" class="text-blue-400">Vráceno</a>
+                        </div>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+
+      <script>
+        function acceptReservation(el,id){
+            var controlsContainer = $(el).parent();
+            var spinner = $(el).parent().parent().children(".spinner");
+            var statusText = $(el).parent().parent().parent().find(".reservation_status");
+            var nextTools = $(el).parent().parent().parent().find("#tools_2");
+            controlsContainer.hide();
+            spinner.show();
+
+            try{
+                postData("/acceptReservation",{"rezervace_id":id}).then((result)=>{
+                    if(result.status == "success"){
+                        statusText.text("Schváleno");
+                        statusText.removeClass("text-orange-400");
+                        statusText.addClass("text-green-400");
+                        controlsContainer.hide();
+                        nextTools.show();
+                    }else{
+                        controlsContainer.show();
+                        spinner.hide();
+                    }
+                }).done();
+            }catch{
+                controlsContainer.show();
+                spinner.hide();
+            }
+        }
+
+        function zvirePujceno(el,id){
+            var controlsContainer = $(el).parent();
+            var spinner = $(el).parent().parent().children(".spinner");
+            var statusText = $(el).parent().parent().parent().find(".reservation_status");
+            var nextTools = $(el).parent().parent().parent().find("#tools_3");
+            controlsContainer.hide();
+            spinner.show();
+
+            try{
+                postData("/zvireZapujceno",{"rezervace_id":id}).then((result)=>{
+                    if(result.status == "success"){
+                        statusText.text("Zvíře půjčeno");
+                        statusText.removeClass("text-green-400");
+                        statusText.addClass("text-blue-400");
+                        controlsContainer.hide();
+                        nextTools.show();
+                    }else{
+                        controlsContainer.show();
+                        spinner.hide();
+                    }
+                }).done();
+            }catch{
+                controlsContainer.show();
+                spinner.hide();
+            }
+        }
+
+        function zvireVraceno(el,id){
+            var controlsContainer = $(el).parent();
+            var spinner = $(el).parent().parent().children(".spinner");
+            controlsContainer.hide();
+            spinner.show();
+
+            try{
+                postData("/zvireVraceno",{"rezervace_id":id}).then((result)=>{
+                    if(result.status == "success"){
+                        $(el).parent().parent().parent().remove();
+                    }else{
+                        controlsContainer.show();
+                        spinner.hide();
+                    }
+                }).done();
+            }catch{
+                controlsContainer.show();
+                spinner.hide();
+            }
+        }
+      </script>
+    {% endblock %}
+{% endembed %}
 
 {% embed 'shelter/partials/modal.twig' with {"id": "manage-users", "title":"Správa uživatelů", "size" : "xl"} %}
     {% block modal_body %}

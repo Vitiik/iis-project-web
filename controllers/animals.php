@@ -30,7 +30,8 @@ $router->map("GET","/zvirata",function(){
 
     //dump($zvirata);
 
+    $zadosti = Animal::rezervaceNaSchvaleni();
     $user = User::getLoggedInUser();
 
-    echo $twig->render('shelter/animals.twig',["zvirata"=>$zvirata,"user"=>$user]);
+    echo $twig->render('shelter/animals.twig',["zvirata"=>$zvirata,"user"=>$user,"zadosti"=>$zadosti]);
 });

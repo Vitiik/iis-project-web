@@ -323,6 +323,11 @@ class Animal{
         ]);
     }
 
+    public static function rezervaceNaSchvaleni(){
+        global $db;
+        return $db->select("rezervace",["[>]zvire"=>["zvire_id"=>"id"],"[>]uzivatel"=>["klient_id"=>"id"]],["rezervace.id","zvire.jmeno(zvire_jmeno)","zvire.plemeno","uzivatel.jmeno","uzivatel.prijmeni","cas_zacatku","cas_konce","schvalena","zvire_zapujceno","zvire_vraceno"],["OR"=>["schvalena"=>0,"zvire_zapujceno"=>0,"zvire_vraceno"=>0]]);
+    }
+
     public static function reserveAnimal($id, $zvire_id, $klient_id){
         global $db;
 
@@ -344,7 +349,7 @@ class Animal{
         global $db;
 
         return $db->update("rezervace",[
-            "schavalena" => 1,
+            "schvalena" => 1,
             "osetrovatel_id" => $osetrovatel_id
         ],[
             "id" => $rezervace_id
