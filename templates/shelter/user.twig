@@ -47,6 +47,7 @@
 {% embed 'shelter/partials/modal.twig' with {"id": "moje-venceni", "title":"Moje historie venčení", "size" : "4xl"} %}
     {% block modal_body %}
       <div class="relative overflow-x-auto">
+          {% if historieRezervaci|length != 0 %}
           <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -89,6 +90,9 @@
                   {% endfor %}
               </tbody>
           </table>
+          {% else %}
+            <p class="text-white">Zatím neproběhlo žádné venčení</p>
+          {% endif %}
       </div>
     {% endblock %}
 {% endembed %}
