@@ -49,7 +49,7 @@
 
         <div class="flex flex-col items-center gap-8 md:w-[32rem]">
             <a href="javascript:;" onclick="openGallery()"><img class="shadow-md" width="450" src="{{obrazky[0].url_velka}}" alt=""></a>
-            {% if user == null %}
+            {% if is_pecovatel(user) == false %}
             <div class="flex flex-row flex-wrap gap-4 w-full justify-center" id="image-gallery">
                 {% for obrazek in obrazky %}
                 <a id="product-image-{{loop.index}}" href="{{obrazek.url_velka}}" data-pswp-width="1000" data-pswp-height="1000" target="_blank"> <img class="shadow-md" width="96" src="{{obrazek.url_mala}}" alt=""> </a>
@@ -92,21 +92,25 @@
             {% endif %}
         </div>
         <div class="ml-auto">
-            <h1 class="hidden md:block font-bold text-2xl mb-2">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
-            <a href="javascript:;" data-modal-target="change-name-modal" data-modal-toggle="change-name-modal" class="hidden md:block font-bold text-2xl mb-2 admin-editable">{{zvire.plemeno}} - {{zvire.jmeno}}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="" class="edit-icon w-4 h-4 fill-blue-500">
-                    <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z" />
-                    <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z" />
-                </svg>
-            </a>
-            <p class="w-[560px]">{{zvire.popis}}</p>
+            {% if is_pecovatel(user) %}
+                <a href="javascript:;" data-modal-target="change-name-modal" data-modal-toggle="change-name-modal" class="hidden md:block font-bold text-2xl mb-2 admin-editable">{{zvire.plemeno}} - {{zvire.jmeno}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="" class="edit-icon w-4 h-4 fill-blue-500">
+                        <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z" />
+                        <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z" />
+                    </svg>
+                </a>
+                
 
-            <a href="javascript:;" data-modal-target="change-description-modal" data-modal-toggle="change-description-modal" class="w-[560px] admin-editable">{{zvire.popis}}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="" class="edit-icon w-4 h-4 fill-blue-500">
-                    <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z" />
-                    <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z" />
-                </svg>
-            </a>
+                <a href="javascript:;" data-modal-target="change-description-modal" data-modal-toggle="change-description-modal" class="w-[560px] admin-editable">{{zvire.popis}}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="" class="edit-icon w-4 h-4 fill-blue-500">
+                        <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z" />
+                        <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z" />
+                    </svg>
+                </a>
+            {% else %}
+                <h1 class="hidden md:block font-bold text-2xl mb-2">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
+                <p class="w-[560px]">{{zvire.popis}}</p>
+            {% endif %}
                 
                 
             
@@ -141,6 +145,7 @@
             </div>
             <hr class="w-full h-px mt-4 bg-slate-200 border-0 mb-4">
             <div class="flex flex-row gap-2">
+                {% if is_dobrovolnik(user) %}
                 <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="reserve-modal" data-modal-toggle="reserve-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                     <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
@@ -148,7 +153,8 @@
                     </svg>
                     Rezervovat zde
                 </button>
-                {% if user != null %}
+                {% endif %}
+                {% if is_vet(user) %}
                 <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="new-event-modal" data-modal-toggle="new-event-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
                         <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
@@ -156,7 +162,8 @@
 
                     Přidat událost
                 </button>
-
+                {% endif %}
+                {% if is_pecovatel(user) %}
                 <button class="flex flex-row p-4 bg-gray-800 text-white rounded shadow items-center gap-2" data-modal-target="create-reserve-modal" data-modal-toggle="create-reserve-modal">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                     <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />

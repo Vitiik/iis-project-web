@@ -29,6 +29,42 @@ $sklonovatMesicFilter = new \Twig\TwigFilter('sklonovat_mesic', function ($value
 $twig->addFilter($sklonovatRokFilter);
 $twig->addFilter($sklonovatMesicFilter);
 
+$isAdministratorFunction = new \Twig\TwigFunction('is_admin', function ($user) {
+    if($user == null) return false;
+    foreach ($user["role"] as $key => $value) {
+        if($value["role_id"] == 1) return true;
+    }
+    return false;
+});
+$isPecovatelFunction = new \Twig\TwigFunction('is_pecovatel', function ($user) {
+    if($user == null) return false;
+    foreach ($user["role"] as $key => $value) {
+        if($value["role_id"] == 1) return true;
+        if($value["role_id"] == 2) return true;
+    }
+    return false;
+});
+$isVeterinarFunction = new \Twig\TwigFunction('is_vet', function ($user) {
+    if($user == null) return false;
+    foreach ($user["role"] as $key => $value) {
+        if($value["role_id"] == 1) return true;
+        if($value["role_id"] == 3) return true;
+    }
+    return false;
+});
+$isDobrovolnikFunction = new \Twig\TwigFunction('is_dobrovolnik', function ($user) {
+    if($user == null) return false;
+    foreach ($user["role"] as $key => $value) {
+        if($value["role_id"] == 1) return true;
+        if($value["role_id"] == 4) return true;
+    }
+    return false;
+});
+$twig->addFunction($isAdministratorFunction);
+$twig->addFunction($isPecovatelFunction);
+$twig->addFunction($isVeterinarFunction);
+$twig->addFunction($isDobrovolnikFunction);
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
