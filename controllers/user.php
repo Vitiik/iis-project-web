@@ -140,27 +140,30 @@ $router->map("POST","/create-user",function(){
     $isUser = User::getByEmail($_POST["email"]);
 
     if ( $isUser != null){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Uživatel s tímto emailem již existuje"
-        ));
-        return;
+        // echo json_encode(array(
+        //     "status" => "error",
+        //     "message" => "Uživatel s tímto emailem již existuje"
+        // ));
+        // return;
+        header("Location: /registrace");
     }
     
     $response = User::createUser($_POST["jmeno"],$_POST["prijmeni"],$_POST["email"],$_POST["password"]);
 
     if ($response == false){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Nastala chyba při zápisu do databáze"
-        ));
+        // echo json_encode(array(
+        //     "status" => "error",
+        //     "message" => "Nastala chyba při zápisu do databáze"
+        // ));
+        header("Location: /registrace");
     } else {
         $_SESSION["user_email"] = $_POST["email"];
-        echo json_encode(array(
-            "status" => "success",
-            "message" => "Uživatel byl přidán do databáze",
-            "redirect" => "/"
-        ));
+        // echo json_encode(array(
+        //     "status" => "success",
+        //     "message" => "Uživatel byl přidán do databáze",
+        //     "redirect" => "/"
+        // ));
+        header("Location: /");
     }
     
 });

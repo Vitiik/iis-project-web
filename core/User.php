@@ -12,9 +12,23 @@ class User{
         return $user;
     }
 
+    public static function getAllUsers(){
+        global $db;
+        return $db->select("uzivatel(u)", [
+            "[>]uzivatel_ma_role(umr)" => ["u.id" => "uzivatel_id"],
+            "[>]role(r)" => ["umr.role_id" => "id"]
+        ], [
+            "u.id",
+            "u.jmeno",
+            "u.prijmeni",
+            "r.jmeno(role)"
+        ]);
+    }
+
     public static function getByEmail(string $user_email){
         global $db;
         $user = $db->get("uzivatel","*",["email"=>$user_email]);
+        if ($user == null) return null;
         $role = User::getRole($user["id"]);
         $user["role"] = $role;
         return $user;
