@@ -108,9 +108,6 @@ frms.forEach(frm => {
 });
 
 function ajaxOnError(modalId,result,timeouts) {
-    for (var i=0; i<timeouts.length; i++) {
-        clearTimeout(timeouts[i]);
-    }
     document.getElementById(modalId).dispatchEvent(
             new KeyboardEvent("keydown", {
             altKey: false,
