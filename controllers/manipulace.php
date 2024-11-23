@@ -98,7 +98,7 @@ $router->map("POST","/prohlidka",function(){
 
     // dump($_POST);
     if (isset($_POST["vytvorit"])){
-        if($_POST["pozdavek_id"] == -1) $_POST["pozdavek_id"] = NULL; 
+        if($_POST["pozadavek_id"] == -1) $_POST["pozadavek_id"] = NULL; 
         if(!isset($_POST["vakcina"])) $_POST["vakcina"] = NULL;
         if(!isset($_POST["vyska"])) $_POST["vyska"] = NULL;
         if(!isset($_POST["delka"])) $_POST["delka"] = NULL;
@@ -106,7 +106,7 @@ $router->map("POST","/prohlidka",function(){
 
         $zverolekar_id = User::getLoggedInUser()["id"];
 
-        $response = Manipulace::createProhlidka($_POST["zdravotni_stav"],$_POST["vakcina"],$_POST["vyska"],$_POST["delka"],$_POST["hmotnost"],$_POST["cas"],$_POST["pozadavek_id"],$_POST["zvire_id"],$zverolekar_id);
+        $response = Manipulace::createProhlidka($_POST["zdravotni_stav"],$_POST["vakcina"],$_POST["vyska"],$_POST["delka"],$_POST["hmotnost"],$_POST["pozadavek_id"],$_POST["zvire_id"],$zverolekar_id);
 
         if ($response == false){
             echo json_encode(array(
