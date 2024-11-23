@@ -121,7 +121,8 @@ $router->map("POST","/reserveAnimal",function(){
     } else {
         echo json_encode(array(
             "status" => "success",
-            "message" => "Rezervace proběhla úspěšně"
+            "message" => "Rezervace proběhla úspěšně",
+            "data" => $_POST["id"]
         ));
     }
 });
