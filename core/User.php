@@ -6,12 +6,18 @@ class User{
 
     public static function getById(int $user_id){
         global $db;
-        return $db->get("uzivatel","*",["id"=>$user_id]);
+        $user = $db->get("uzivatel","*",["id"=>$user_id]);
+        $role = User::getRole($user["id"]);
+        $user["role"] = $role;
+        return $user;
     }
 
     public static function getByEmail(string $user_email){
         global $db;
-        return $db->get("uzivatel","*",["email"=>$user_email]);
+        $user = $db->get("uzivatel","*",["email"=>$user_email]);
+        $role = User::getRole($user["id"]);
+        $user["role"] = $role;
+        return $user;
     }
 
     public static function getLoggedInUser(){
@@ -39,6 +45,11 @@ class User{
         ],[
             "id" => $id
         ]);
+    }
+
+    public static function getRole($uzivatel_id){
+        global $db;
+        return $db->select("role",["[>]uzivatel_ma_role"=>["id"=>"role_id"]],["role.id(role_id)","jmeno(role_jmeno)"],["uzivatel_id"=>$uzivatel_id]);
     }
 
     public static function setRole($uzivatel_id,$role_id){
