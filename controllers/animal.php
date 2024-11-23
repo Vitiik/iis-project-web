@@ -167,6 +167,24 @@ $router->map("POST","/acceptReservation",function(){
     }
 });
 
+$router->map("POST","/deleteReservation",function(){
+    $_POST = json_decode(file_get_contents('php://input'), true);
+    
+    $response = Animal::deleteReservation($_POST["rezervace_id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Rezervace byla úspěčně smazána"
+        ));
+    }
+});
+
 $router->map("POST","/zvireZapujceno",function(){
     $_POST = json_decode(file_get_contents('php://input'), true);
     

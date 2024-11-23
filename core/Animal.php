@@ -358,6 +358,11 @@ class Animal{
         ]);
     }
 
+    public static function deleteReservation($rezervace_id){
+        global $db;
+        return $db->delete("rezervace",["id" => $rezervace_id]);
+    }
+
     public static function zvireZapujceno($rezervace_id){
         global $db;
 
