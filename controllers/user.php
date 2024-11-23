@@ -88,7 +88,7 @@ $router->map("GET","/muj-profil",function(){
         exit();
     }
 
-    echo $twig->render('shelter/user.twig',["user"=>$user]);
+    echo $twig->render('shelter/user.twig',["user"=>$user,"historieRezervaci"=>$historieRezervaci]);
 });
 
 $router->map("POST","/setRole",function(){
