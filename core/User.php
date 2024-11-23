@@ -22,6 +22,7 @@ class User{
             "u.jmeno",
             "u.prijmeni",
             "u.email",
+            "u.overen_kdy",
             "r.jmeno(role)",
             "r.id(role_id)"
         ]);
