@@ -25,6 +25,7 @@ $router->map("GET","/zvirata",function(){
         if ($zvire['url_mala'] == null) {
             $zvire['url_mala'] = "/media/images/no-image.jpg";
         }
+        $zvire["umrti"] = Animal::getUmrtiById($zvire['id']);
     }
 
     //dump($zvirata);

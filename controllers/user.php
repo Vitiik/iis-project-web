@@ -25,7 +25,9 @@ $router->map("GET","/logout",function(){
 $router->map("POST","/login",function(){
     global $twig, $db;
     sleep(1);
-    $_POST = json_decode(file_get_contents('php://input'), true);
+    // $_POST = json_decode(file_get_contents('php://input'), true);
+
+    // dump($_POST);
 
     if(isset($_POST["email"])){
         if(isset($_POST["password"])){
@@ -35,28 +37,28 @@ $router->map("POST","/login",function(){
                 if(password_verify($_POST["password"],$user["heslo"])){
                     $_SESSION["user_email"] = $user["email"];
                     //TODO: Zde přidat roli
-                    // header("Location: /");
+                    header("Location: /");
                     // dump($user);
-                    echo json_encode(array(
-                        "status" => "success",
-                        "message" => "Úspěšně přihlášen",
-                        "redirect" => "/"
-                    ));
+                    // echo json_encode(array(
+                    //     "status" => "success",
+                    //     "message" => "Úspěšně přihlášen",
+                    //     "redirect" => "/"
+                    // ));
                 }else{
-                    // header("Location: /login");
-                    echo json_encode(array(
-                        "status" => "error",
-                        "message" => "Špatné heslo",
-                        "redirect" => "/login"
-                    ));
+                    header("Location: /login");
+                    // echo json_encode(array(
+                    //     "status" => "error",
+                    //     "message" => "Špatné heslo",
+                    //     "redirect" => "/login"
+                    // ));
                 }
             }else{
-                // header("Location: /login");
-                echo json_encode(array(
-                    "status" => "error",
-                    "message" => "Na tento email není vytvořen žádný účet",
-                    "redirect" => "/login"
-                ));
+                header("Location: /login");
+                // echo json_encode(array(
+                //     "status" => "error",
+                //     "message" => "Na tento email není vytvořen žádný účet",
+                //     "redirect" => "/login"
+                // ));
             }
         }
     }
