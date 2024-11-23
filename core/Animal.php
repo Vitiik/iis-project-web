@@ -191,10 +191,15 @@ class Animal{
 
     public static function getAllZadostiNaProhlidkuById($id){
         global $db;
-        return $db->select("pozadavek_na_prohlidku", "*",[
-                "zvire_id" => $id
-            ]
-        );
+        $results = $db->select("pozadavek_na_prohlidku", "*",["zvire_id" => $id]);
+
+        foreach ($results as &$row) {
+            $osetrovatel = $db->get("uzivatel", ["jmeno","prijmeni"],["id" => $row["osetrovatel_id"]]);
+            $row['osetrovatel']= $osetrovatel["jmeno"] . " " . $osetrovatel["prijmeni"];
+        }
+
+        return $results;
+
     }
 
     public static function getZvireJeVolneById($id){
