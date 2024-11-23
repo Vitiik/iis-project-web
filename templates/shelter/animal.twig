@@ -93,7 +93,7 @@
         </div>
         <div class="ml-auto">
             {% if is_pecovatel(user) %}
-                <a href="javascript:;" data-modal-target="change-name-modal" data-modal-toggle="change-name-modal" class="hidden md:block font-bold text-2xl mb-2 admin-editable">{{zvire.plemeno}} - {{zvire.jmeno}}
+                <a href="javascript:;" data-modal-target="change-name-modal" data-modal-toggle="change-name-modal" class="hidden md:block font-bold text-2xl mb-2 admin-editable animal-name">{{zvire.plemeno}} - {{zvire.jmeno}}
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="" class="edit-icon w-4 h-4 fill-blue-500">
                         <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z" />
                         <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z" />
@@ -101,15 +101,15 @@
                 </a>
                 
 
-                <a href="javascript:;" data-modal-target="change-description-modal" data-modal-toggle="change-description-modal" class="w-[560px] admin-editable">{{zvire.popis}}
+                <a href="javascript:;" data-modal-target="change-description-modal" data-modal-toggle="change-description-modal" class="w-[560px] admin-editable animal-popis">{{zvire.popis}}
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="" class="edit-icon w-4 h-4 fill-blue-500">
                         <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z" />
                         <path d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z" />
                     </svg>
                 </a>
             {% else %}
-                <h1 class="hidden md:block font-bold text-2xl mb-2">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
-                <p class="w-[560px]">{{zvire.popis}}</p>
+                <h1 class="hidden md:block font-bold text-2xl mb-2 animal-name">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
+                <p class="w-[560px] animal-popis">{{zvire.popis}}</p>
             {% endif %}
                 
                 
@@ -328,7 +328,7 @@ window.lightbox.init();
 
 {% embed 'shelter/partials/modal.twig' with {"id": "change-name", "title":"Změnit jméno zvířete"} %}
     {% block modal_body %}
-    <form class="ajax-form space-y-4" action="/editAnimal" method="POST">
+    <form class="ajax-form space-y-4" data-ajax-callback="updateAnimal" action="/editAnimal" method="POST">
         <input type="text" class="hidden" value="{{zvire.id}}" name="id">
         
         <div class="col-span-2 sm:col-span-1">
@@ -344,13 +344,24 @@ window.lightbox.init();
         <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Uložit</button>
     </form>
 
+    <script>
+        function updateAnimal(data){
+            if(data.data["jmeno"] != undefined && data.data["plemeno"] != undefined){                
+                $(".animal-name").text(data.data["plemeno"] + " - " + data.data["jmeno"]);
+            }
+            if(data.data["popis"] != undefined){
+                $(".animal-popis").text(data.data["popis"]);
+            }
+        }
+    </script>
+
     {% endblock %}
 {% endembed %}
 
 
 {% embed 'shelter/partials/modal.twig' with {"id": "change-description", "title":"Změnit popisek zvířete"} %}
     {% block modal_body %}
-    <form class="ajax-form space-y-4" action="/editAnimal" method="POST">
+    <form class="ajax-form space-y-4" data-ajax-callback="updateAnimal" action="/editAnimal" method="POST">
         <input type="text" class="hidden" value="{{zvire.id}}" name="id">
         
         <div class="col-span-2 sm:col-span-1">
