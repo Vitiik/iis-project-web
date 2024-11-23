@@ -189,6 +189,14 @@ class Animal{
         );
     }
 
+    public static function getAllZadostiNaProhlidkuById($id){
+        global $db;
+        return $db->select("pozadavek_na_prohlidku", "*",[
+                "zvire_id" => $id
+            ]
+        );
+    }
+
     public static function getZvireJeVolneById($id){
         global $db;
 

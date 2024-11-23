@@ -12,6 +12,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     $hmotnost = Animal::getHmotnostById($id);
     $zvire_je_volne = Animal::getZvireJeVolneById($id);
     $manipulace = Animal::getManipulaceById($id);
+    $pozadavkyNaProhlidku = Animal::getAllZadostiNaProhlidkuById($id);
 
     // echo "Zvíře:";
     //dump($zvire);
@@ -36,7 +37,7 @@ $router->map("GET","/zvire/[i:id]",function($id){
     // dump($manipulace);
 
 
-    echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost, "user"=>$user, "zvire_je_volne"=>$zvire_je_volne, "manipulace"=>$manipulace]);
+    echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost, "user"=>$user, "zvire_je_volne"=>$zvire_je_volne, "manipulace"=>$manipulace, "pozadavkyNaProhlidku"=>$pozadavkyNaProhlidku]);
 });
 
 $router->map("POST","/createAnimal",function(){
