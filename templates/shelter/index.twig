@@ -6,7 +6,31 @@
 {% block content %}
 
 
-<h1>Tady bude index, zatím tu nic není</h1>
+    <p>Pomáháme zvířatům najít nový domov</p>
+    <div class="rounded-lg w-full h-96 bg-cover flex flex-col gap-4 items-center justify-center bg-[center_bottom_-22rem]" style="background-image: url('https://as1.ftcdn.net/v2/jpg/06/22/74/42/1000_F_622744204_XiEGfOBLzRBhsSHZihicBsKID5qSnZef.jpg')">
+        <h2 class="text-lg">Dejte zvířatům druhou šanci</h2>
+        <a href="/zvirata" class="p-4 bg-blue-500 text-white rounded-lg shadow-lg">Adoptujte mazlíčka</a>
+    </div>
+        <section id="about">
+            <h2>O nás</h2>
+            <p>Jsme nezisková organizace, která pomáhá opuštěným a týraným zvířatům. Naším cílem je najít jim milující domov a zajistit, aby měla lepší budoucnost.</p>
+        </section>
+        <section id="animals">
+            <h2>Naši mazlíčci</h2>
+            <p>Podívejte se na zvířata, která čekají na nový domov. Každý z nich potřebuje lásku a péči.</p>
+            <p><i>(Zde může být galerie zvířat nebo odkaz na seznam.)</i></p>
+        </section>
+        <section id="contact">
+            <h2>Kontaktujte nás</h2>
+            <div class="contact-form">
+                <form>
+                    <input type="text" name="name" placeholder="Vaše jméno" required>
+                    <input type="email" name="email" placeholder="Váš email" required>
+                    <textarea name="message" rows="5" placeholder="Vaše zpráva" required></textarea>
+                    <button type="submit">Odeslat</button>
+                </form>
+            </div>
+        </section>
 
 
 {% endblock %}
