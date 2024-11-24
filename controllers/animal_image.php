@@ -61,4 +61,6 @@ $router->map("GET","/posunoutObrazekZvirete",function(){
     if($_GET["smer"] == "dolu"){ //Smazat
         AnimalImage::deleteById($_GET["obrazek_id"]);
     }
+
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
 });

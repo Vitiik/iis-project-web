@@ -6,7 +6,7 @@ $router->map("GET","/login",function(){
     global $twig;
 
     if(isset($_SESSION["user_email"])){
-        header("Location: /admin");
+        header("Location: /");
     }
 
     echo $twig->render('admin/login.twig');
@@ -20,13 +20,6 @@ $router->map("GET","/logout",function(){
     }
 
     header("Location: /");
-});
-
-$router->map('GET', '/admin', function() {
-    global $twig, $db;
-    admin_kick();
-
-    echo $twig->render('shelter/index.twig',[]);
 });
 
 $router->map("GET","/registrace",function(){

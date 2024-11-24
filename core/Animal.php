@@ -337,13 +337,14 @@ class Animal{
         return $db->update("zvire",$_POST,["id" => $_POST["id"]]);
     }
 
-    public static function createAnimal($jmeno,$zivocisny_druh,$plemeno,$pohlavi,$datum_narozeni){
+    public static function createAnimal($jmeno,$zivocisny_druh,$plemeno,$pohlavi,$datum_narozeni,$popis){
         global $db;
         $response = $db->insert("zvire",[
             "jmeno" => $jmeno,
             "zivocisny_druh" => $zivocisny_druh,
             "plemeno" => $plemeno,
             "pohlavi" => $pohlavi,
+            "popis" =>$popis,
             "datum_narozeni" => $datum_narozeni
         ]);
         if ($response == false) return false;
