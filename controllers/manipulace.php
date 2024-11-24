@@ -30,7 +30,6 @@ $router->map("POST","/prodej",function(){
             ));
         }
     }
-
 });
 
 $router->map("POST","/nalezeni",function(){
@@ -60,7 +59,6 @@ $router->map("POST","/nalezeni",function(){
             ));
         }
     }
-
 });
 
 $router->map("POST","/umrti",function(){
@@ -88,7 +86,6 @@ $router->map("POST","/umrti",function(){
             ));
         }
     }
-
 });
 
 $router->map("POST","/prohlidka",function(){
@@ -96,7 +93,6 @@ $router->map("POST","/prohlidka",function(){
 
     $_POST = json_decode(file_get_contents('php://input'), true);
 
-    // dump($_POST);
     if (isset($_POST["vytvorit"])){
         if($_POST["pozadavek_id"] == -1) $_POST["pozadavek_id"] = NULL; 
         if(!isset($_POST["vakcina"])) $_POST["vakcina"] = NULL;
@@ -129,5 +125,4 @@ $router->map("POST","/prohlidka",function(){
             ));
         }
     }
-
 });

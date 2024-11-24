@@ -13,74 +13,9 @@ $router->map("GET","/zvire/[i:id]",function($id){
     $zvire_je_volne = Animal::getZvireJeVolneById($id);
     $manipulace = Animal::getManipulaceById($id);
     $pozadavkyNaProhlidku = Animal::getAllZadostiNaProhlidkuById($id);
-
-    // echo "Zvíře:";
-    //dump($zvire);
-
-    // echo "Fotky:";
-    //dump($obrazky);
-
-    // echo "Očkování:";
-    //dump(Animal::getOckovaniById($id));
-
-    // echo "Hmotnost:";
-    //dump($hmotnost);
-
-    // echo "Měření:";
-    // dump(Animal::getAllMereniById($id));
-
-    // dump($zvire_je_volne);
-    // dump($manipulace);
-    
     $user = User::getLoggedInUser();
 
-    // dump($pozadavkyNaProhlidku);
-
-
     echo $twig->render('shelter/animal.twig',["zvire"=>$zvire, "obrazky"=>$obrazky, "hmotnost"=>$hmotnost, "user"=>$user, "zvire_je_volne"=>$zvire_je_volne, "manipulace"=>$manipulace, "pozadavkyNaProhlidku"=>$pozadavkyNaProhlidku]);
-});
-
-$router->map("POST","/createAnimal",function(){
-
-    $_POST = json_decode(file_get_contents('php://input'), true);
-
-    $response = Animal::createAnimal($_POST["jmeno"],$_POST["zivocisny_druh"],$_POST["plemeno"],$_POST["pohlavi"],$_POST["datum_narozeni"]);
-
-    if ($response == false){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Nastala chyba při zápisu do databáze"
-        ));
-    } else {
-        $zvire_id = $response;
-
-        $response = Manipulace::createNalezeni($_POST["jmeno_nalezce"],$_POST["kontakt_na_nalezce"],$_POST["misto_nalezeni"],$_POST["cas"],$zvire_id);
-
-        if ($response == false){
-            echo json_encode(array(
-                "status" => "error",
-                "message" => "Nastala chyba při zápisu do databáze"
-            ));
-        }else {
-            echo json_encode(array(
-                "status" => "success",
-                "message" => "Zvíře bylo přidáno do databáze",
-                "data"=> array(
-                    "id"=>$zvire_id,
-                    "jmeno"=>$_POST["jmeno"],
-                    "zivocisny_druh" => $_POST["zivocisny_druh"],
-                    "plemeno" => $_POST["plemeno"],
-                    "pohlavi" => $_POST["pohlavi"],
-                    "datum_narozeni" => $_POST["datum_narozeni"],
-                    "popis" => $_POST["popis"],
-                    "jmeno_nalezce" => $_POST["jmeno_nalezce"],
-                    "kontakt_na_nalezce" => $_POST["kontakt_na_nalezce"],
-                    "misto_nalezeni" => $_POST["misto_nalezeni"],
-                    "cas" => $_POST["cas"]
-                    )
-            ));
-        }
-    }
 });
 
 $router->map("POST","/editAnimal",function(){
@@ -149,46 +84,6 @@ $router->map("POST","/addReservationTimes",function(){
     }
 });
 
-$router->map("POST","/acceptReservation",function(){
-    $_POST = json_decode(file_get_contents('php://input'), true);
-
-    $user = User::getLoggedInUser();
-    
-    $response = Animal::acceptReservation($_POST["rezervace_id"],$user["id"]);
-
-    if ($response == false){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Nastala chyba při zápisu do databáze"
-        ));
-    } else {
-        echo json_encode(array(
-            "status" => "success",
-            "message" => "Rezervace byla úspěčně shválena"
-        ));
-    }
-});
-
-$router->map("POST","/declineReservation",function(){
-    $_POST = json_decode(file_get_contents('php://input'), true);
-
-    $user = User::getLoggedInUser();
-    
-    $response = Animal::declineReservation($_POST["rezervace_id"],$user["id"]);
-
-    if ($response == false){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Nastala chyba při zápisu do databáze"
-        ));
-    } else {
-        echo json_encode(array(
-            "status" => "success",
-            "message" => "Rezervace byla zamítnuta"
-        ));
-    }
-});
-
 $router->map("POST","/deleteReservationTime",function(){
     $_POST = json_decode(file_get_contents('php://input'), true);
     
@@ -203,42 +98,6 @@ $router->map("POST","/deleteReservationTime",function(){
         echo json_encode(array(
             "status" => "success",
             "message" => "Čas pro rezervaci byl úspěčně smazána"
-        ));
-    }
-});
-
-$router->map("POST","/zvireZapujceno",function(){
-    $_POST = json_decode(file_get_contents('php://input'), true);
-    
-    $response = Animal::zvireZapujceno($_POST["rezervace_id"]);
-
-    if ($response == false){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Nastala chyba při zápisu do databáze"
-        ));
-    } else {
-        echo json_encode(array(
-            "status" => "success",
-            "message" => "Zvíře bylo zapůjčeno"
-        ));
-    }
-});
-
-$router->map("POST","/zvireVraceno",function(){
-    $_POST = json_decode(file_get_contents('php://input'), true);
-    
-    $response = Animal::zvireVraceno($_POST["rezervace_id"]);
-
-    if ($response == false){
-        echo json_encode(array(
-            "status" => "error",
-            "message" => "Nastala chyba při zápisu do databáze"
-        ));
-    } else {
-        echo json_encode(array(
-            "status" => "success",
-            "message" => "Zvíře bylo vráceno"
         ));
     }
 });

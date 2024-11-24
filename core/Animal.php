@@ -195,6 +195,16 @@ class Animal{
         );
     }
 
+    public static function createPozadavekNaProhlidku($zamereni, $osetrovatel_id, $zvire_id){
+        global $db;
+
+        return $db->insert("pozadavek_na_prohlidku",[
+            "zamereni" => $zamereni,
+            "osetrovatel_id" => $osetrovatel_id,
+            "zvire_id" => $zvire_id
+        ]);
+    }
+
     public static function getAllZadostiNaProhlidkuById($id){
         global $db;
         $results = $db->select("pozadavek_na_prohlidku", "*",["zvire_id" => $id]);
@@ -221,7 +231,6 @@ class Animal{
     public static function getZvireJeVolneById($id){
         global $db;
 
-        // Step 1: Fetch all conflicting rezervace records for the specified zvire_id
         $conflicting_reservations = $db->select("rezervace", [
             "cas_zacatku",
             "cas_konce"
@@ -229,7 +238,6 @@ class Animal{
             "zvire_id" => $id
         ]);
 
-        // Step 2: Prepare conditions to exclude conflicting intervals
         $conflict_conditions = [];
         foreach ($conflicting_reservations as $conflict) {
             $conflict_conditions[] = [
@@ -238,7 +246,6 @@ class Animal{
             ];
         }
 
-        // Step 3: Fetch available times excluding conflicting intervals
         if ($conflicting_reservations != NULL){
             $available_times = $db->select("zvire_je_volne", "*", [
                 "zvire_id" => $id,
@@ -443,17 +450,5 @@ class Animal{
 
         return $db->update("rezervace",["zvire_vraceno" => 1],["id" => $rezervace_id]);
     }
-
-    public static function createPozadavekNaProhlidku($zamereni, $osetrovatel_id, $zvire_id){
-        global $db;
-
-        return $db->insert("pozadavek_na_prohlidku",[
-            "zamereni" => $zamereni,
-            "osetrovatel_id" => $osetrovatel_id,
-            "zvire_id" => $zvire_id
-        ]);
-        
-    }
-
 
 }
