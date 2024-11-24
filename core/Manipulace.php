@@ -35,7 +35,7 @@ class Manipulace{
         ]);
     }
 
-    public static function createProhlidka($zdravotni_stav, $vakcina, $vyska, $delka, $hmotnost, $cas, $pozadavek_id, $zvire_id, $zverolekar_id){
+    public static function createProhlidka($zdravotni_stav, $vakcina, $vyska, $delka, $hmotnost, $pozadavek_id, $zvire_id, $zverolekar_id){
         global $db;
         return $db->insert("prohlidka",[
             "zdravotni_stav" => $zdravotni_stav,
