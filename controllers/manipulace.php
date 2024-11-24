@@ -123,7 +123,6 @@ $router->map("POST","/prohlidka",function(){
                     "vyska" => $_POST["vyska"],
                     "delka" => $_POST["delka"],
                     "hmotnost" => $_POST["hmotnost"],
-                    "cas" => $_POST["cas"],
                     "zvire_id" => $_POST["zvire_id"],
                     "zverolekar_id" => $zverolekar_id
                     )

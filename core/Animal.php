@@ -200,7 +200,6 @@ class Animal{
         $results = $db->select("pozadavek_na_prohlidku", "*",["zvire_id" => $id]);
 
         $prohlidky = $db->select("prohlidka", ["pozadavek_id"],["zvire_id" => $id,"pozadavek_id[!]"=>NULL]);
-        // dump($prohlidky);
 
         $nevyrizene_prohlidky = [];
 
@@ -211,7 +210,7 @@ class Animal{
             $row['osetrovatel']= $osetrovatel["jmeno"] . " " . $osetrovatel["prijmeni"];
 
             foreach ($prohlidky as $proh){
-                if ($proh["pozadavek_id"] == $row["pozadavek_id"]) $exists = 1;
+                if ($proh["pozadavek_id"] == $row["id"]) $exists = 1;
             }
             if ($exists == 1) $nevyrizene_prohlidky[] = $row;
         }
