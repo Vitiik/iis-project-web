@@ -242,7 +242,7 @@
 
 <div id="delete-user-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-[60] justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative rounded-lg shadow bg-gray-700">
             <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="delete-user-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -252,10 +252,10 @@
             <div class="p-4 md:p-5 text-center">
                 <form action="/deleteUser" method="POST">
                 <input type="text" name="number" id="uzivatel-id" hidden required>
-                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <svg class="mx-auto mb-4 w-12 h-12 text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Opravdu chcete smazat tuto položku?</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-400">Opravdu chcete smazat tuto položku?</h3>
                 <a href="javascript:;" onclick="deleteUser(this)" data-modal-hide="delete-user-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                     Ano
                 </a>
@@ -530,19 +530,19 @@
             <div class="hidden" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="flex flex-col gap-2">
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="jmeno_nalezce" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Celé jméno nálezce</label>
-                        <input type="text" name="jmeno_nalezce" id="jmeno_nalezce" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="jmeno_nalezce" class="block mb-2 text-sm font-medium text-white">Celé jméno nálezce</label>
+                        <input type="text" name="jmeno_nalezce" id="jmeno_nalezce" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="kontakt_na_nalezce" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kontakt na nálezce</label>
-                        <input type="text" name="kontakt_na_nalezce" id="kontakt_na_nalezce" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="kontakt_na_nalezce" class="block mb-2 text-sm font-medium text-white">Kontakt na nálezce</label>
+                        <input type="text" name="kontakt_na_nalezce" id="kontakt_na_nalezce" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="misto_nalezeni" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Místo nalezení</label>
-                        <input type="text" name="misto_nalezeni" id="misto_nalezeni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="misto_nalezeni" class="block mb-2 text-sm font-medium text-white">Místo nalezení</label>
+                        <input type="text" name="misto_nalezeni" id="misto_nalezeni" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="cas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum a čas nalezení</label>
+                        <label for="cas" class="block mb-2 text-sm font-medium text-white">Datum a čas nalezení</label>
                         <input type="datetime-local" name="cas" id="cas" class="default-time bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
                     </div>
                 </div>
@@ -551,33 +551,33 @@
                 <div class="flex flex-col gap-2">
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="jmeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jméno zvířete</label>
-                        <input type="text" name="jmeno" id="jmeno" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="jmeno" class="block mb-2 text-sm font-medium text-white">Jméno zvířete</label>
+                        <input type="text" name="jmeno" id="jmeno" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="popis" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Popis zvířete</label>
-                        <textarea name="popis" id="popis" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required=""></textarea>
+                        <label for="popis" class="block mb-2 text-sm font-medium text-white">Popis zvířete</label>
+                        <textarea name="popis" id="popis" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required=""></textarea>
                     </div>
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="zivocisny_druh" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Druh zvířete</label>
-                        <input type="text" name="zivocisny_druh" id="zivocisny_druh" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="zivocisny_druh" class="block mb-2 text-sm font-medium text-white">Druh zvířete</label>
+                        <input type="text" name="zivocisny_druh" id="zivocisny_druh" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="plemeno" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Plemeno</label>
-                        <input type="text" name="plemeno" id="plemeno" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="plemeno" class="block mb-2 text-sm font-medium text-white">Plemeno</label>
+                        <input type="text" name="plemeno" id="plemeno" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="pohlavi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pohlaví</label>
-                        <input type="text" name="pohlavi" id="pohlavi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="pohlavi" class="block mb-2 text-sm font-medium text-white">Pohlaví</label>
+                        <input type="text" name="pohlavi" id="pohlavi" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
 
                     <div class="col-span-2 sm:col-span-1">
-                        <label for="datum_narozeni" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum narození</label>
-                        <input type="date" name="datum_narozeni" id="datum_narozeni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <label for="datum_narozeni" class="block mb-2 text-sm font-medium text-white">Datum narození</label>
+                        <input type="date" name="datum_narozeni" id="datum_narozeni" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white focus:ring-primary-500 focus:border-primary-500" placeholder="" required="">
                     </div>
                     
                     <button type="submit" class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Přidat</button>
