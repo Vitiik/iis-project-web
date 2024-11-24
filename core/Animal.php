@@ -212,7 +212,7 @@ class Animal{
             foreach ($prohlidky as $proh){
                 if ($proh["pozadavek_id"] == $row["id"]) $exists = 1;
             }
-            if ($exists == 1) $nevyrizene_prohlidky[] = $row;
+            if ($exists == 0) $nevyrizene_prohlidky[] = $row;
         }
         return $nevyrizene_prohlidky;
 
