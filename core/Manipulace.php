@@ -43,7 +43,6 @@ class Manipulace{
             "vyska" => $vyska,
             "delka" => $delka,
             "hmotnost" => $hmotnost,
-            "cas" => $cas,
             "pozadavek_id" => $pozadavek_id,
             "zvire_id" => $zvire_id,
             "zverolekar_id" => $zverolekar_id
