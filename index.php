@@ -76,10 +76,10 @@ session_start();
 //Connect to DB
 $db = new Medoo([
     'type' => 'mysql',
-    'host' => 'mariadb105.r3.websupport.cz:3315',
+    'host' => 'localhost',
     'database' => 'iis_project',
-    'username' => 'a09ea34p',
-    'password' => 'Nk6,HV-a]T'
+    'username' => 'root',
+    'password' => ''
 ]);
 
 $router = new AltoRouter();
