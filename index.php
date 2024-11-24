@@ -4,6 +4,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Medoo\Medoo;
 use Core\BannedIP;
 
+ini_set('session.gc_maxlifetime', 10*60);
+
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/templates');
 $twig = new \Twig\Environment($loader, []);
 
