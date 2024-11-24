@@ -89,6 +89,7 @@ class Animal{
     public static function getOckovaniById($id){
         global $db;
         return $db->select("prohlidka", [   
+                "id",
                 "cas",
                 "vakcina",
                 "zdravotni_stav",
@@ -103,7 +104,8 @@ class Animal{
 
     public static function getAllMereniById($id){
         global $db;
-        return $db->select("prohlidka", [   
+        return $db->select("prohlidka", [ 
+                "id",  
                 "cas",
                 "vyska",
                 "delka",
@@ -135,6 +137,7 @@ class Animal{
     public static function getNalezeniById($id){
         global $db;
         return $db->get("nalezeni", [
+                "id",
                 "jmeno_nalezce",
                 "kontakt_na_nalezce",
                 "misto_nalezeni",
@@ -149,6 +152,7 @@ class Animal{
     public static function getProdejById($id){
         global $db;
         return $db->get("prodej", [
+                "id",
                 "jmeno_zakaznika",
                 "telefon_zakaznika",
                 "cena",
@@ -163,6 +167,7 @@ class Animal{
     public static function getUmrtiById($id){
         global $db;
         return $db->get("umrti", [
+                "id",
                 "pricina",
                 "cas"
             ],[
@@ -175,6 +180,7 @@ class Animal{
     public static function getAllProhlidkyBezMereniOckovaniById($id){
         global $db;
         return $db->select("prohlidka", [   
+            "id",
             "cas",
             "zdravotni_stav",
             "zverolekar_id"
@@ -193,12 +199,23 @@ class Animal{
         global $db;
         $results = $db->select("pozadavek_na_prohlidku", "*",["zvire_id" => $id]);
 
+        $prohlidky = $db->select("prohlidka", ["pozadavek_id"],["zvire_id" => $id,"pozadavek_id[!]"=>NULL]);
+        // dump($prohlidky);
+
+        $nevyrizene_prohlidky = [];
+
         foreach ($results as &$row) {
+            $exists = 0;
+
             $osetrovatel = $db->get("uzivatel", ["jmeno","prijmeni"],["id" => $row["osetrovatel_id"]]);
             $row['osetrovatel']= $osetrovatel["jmeno"] . " " . $osetrovatel["prijmeni"];
-        }
 
-        return $results;
+            foreach ($prohlidky as $proh){
+                if ($proh["pozadavek_id"] == $row["pozadavek_id"]) $exists = 1;
+            }
+            if ($exists == 1) $nevyrizene_prohlidky[] = $row;
+        }
+        return $nevyrizene_prohlidky;
 
     }
 
