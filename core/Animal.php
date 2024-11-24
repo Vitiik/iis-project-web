@@ -387,6 +387,17 @@ class Animal{
         ]);
     }
 
+    public static function declineReservation($rezervace_id, $osetrovatel_id){
+        global $db;
+
+        return $db->update("rezervace",[
+            "schvalena" => 2,
+            "osetrovatel_id" => $osetrovatel_id
+        ],[
+            "id" => $rezervace_id
+        ]);
+    }
+
     public static function deleteReservationTime($rezervace_id){
         global $db;
         return $db->delete("zvire_je_volne",["id" => $rezervace_id]);

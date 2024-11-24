@@ -169,6 +169,26 @@ $router->map("POST","/acceptReservation",function(){
     }
 });
 
+$router->map("POST","/declineReservation",function(){
+    $_POST = json_decode(file_get_contents('php://input'), true);
+
+    $user = User::getLoggedInUser();
+    
+    $response = Animal::declineReservation($_POST["rezervace_id"],$user["id"]);
+
+    if ($response == false){
+        echo json_encode(array(
+            "status" => "error",
+            "message" => "Nastala chyba při zápisu do databáze"
+        ));
+    } else {
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Rezervace byla zamítnuta"
+        ));
+    }
+});
+
 $router->map("POST","/deleteReservationTime",function(){
     $_POST = json_decode(file_get_contents('php://input'), true);
     
