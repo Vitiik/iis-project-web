@@ -80,11 +80,15 @@
                           {% if zadost.schvalena == 0 %}
                             <p class="text-xs text-orange-400 reservation_status">Čeká na schválení</p>
                           {% else %}
-                            {% if zadost.zvire_zapujceno == 0 %}
-                                <p class="text-xs text-green-400 reservation_status">Schváleno</p>
+                            {% if zadost.schvalena == 2 %}
+                                <p class="text-xs text-red-400 reservation_status">Zamítnuto</p>
                             {% else %}
-                                {% if zadost.zvire_vraceno == 0 %}
-                                    <p class="text-xs text-blue-400 reservation_status">Zvíře půjčeno</p>
+                                {% if zadost.zvire_zapujceno == 0 %}
+                                    <p class="text-xs text-green-400 reservation_status">Schváleno</p>
+                                {% else %}
+                                    {% if zadost.zvire_vraceno == 0 %}
+                                        <p class="text-xs text-blue-400 reservation_status">Zvíře půjčeno</p>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                           {% endif %}
@@ -109,12 +113,12 @@
                         
                         <div id="tools_1" class="{{zadost.schvalena == 0 ? "" : "hidden"}}">
                           <a href="javascript:;" onclick="acceptReservation(this,{{zadost.id}})" class="text-green-400">Potvrdit</a>
-                          <a href="" class="text-red-400">Zamítnout</a>
+                          <a href="javascript:;" onclick="declineReservation(this,{{zadost.id}})" class="text-red-400">Zamítnout</a>
                         </div>
-                        <div id="tools_2" class="{{zadost.schvalena == 0 ? "hidden" : ""}}">
+                        <div id="tools_2" class="{{zadost.schvalena == 1 and zadost.zvire_zapujceno == 0 ? "" : "hidden"}}">
                           <a href="javascript:;" onclick="zvirePujceno(this,{{zadost.id}})" class="text-blue-400">Vyzvednout</a>
                         </div>
-                        <div id="tools_3" class="{{zadost.zvire_pujceno == 0 ? "hidden" : ""}}">
+                        <div id="tools_3" class="{{zadost.zvire_zapujceno == 0 ? "hidden" : ""}}">
                           <a href="javascript:;" onclick="zvireVraceno(this,{{zadost.id}})" class="text-blue-400">Vráceno</a>
                         </div>
                       </td>
@@ -141,6 +145,33 @@
                         statusText.addClass("text-green-400");
                         controlsContainer.hide();
                         nextTools.show();
+                    }else{
+                        controlsContainer.show();
+                        spinner.hide();
+                    }
+                }).done();
+            }catch{
+                controlsContainer.show();
+                spinner.hide();
+            }
+        }
+
+        function declineReservation(el,id){
+            var controlsContainer = $(el).parent();
+            var spinner = $(el).parent().parent().children(".spinner");
+            var statusText = $(el).parent().parent().parent().find(".reservation_status");
+            var nextTools = $(el).parent().parent().parent().find("#tools_2");
+            controlsContainer.hide();
+            spinner.show();
+
+            try{
+                postData("/declineReservation",{"rezervace_id":id}).then((result)=>{
+                    if(result.status == "success"){
+                        statusText.text("Zamítnuto");
+                        statusText.removeClass("text-orange-400");
+                        statusText.addClass("text-red-400");
+                        controlsContainer.hide();
+                        $(el).parent().parent().parent().remove();
                     }else{
                         controlsContainer.show();
                         spinner.hide();
@@ -512,7 +543,7 @@
                     </div>
                     <div class="col-span-2 sm:col-span-1">
                         <label for="cas" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Datum a čas nalezení</label>
-                        <input type="datetime-local" name="cas" id="cas" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
+                        <input type="datetime-local" name="cas" id="cas" class="default-time bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="" required="">
                     </div>
                 </div>
             </div>
@@ -556,6 +587,23 @@
         </div>
 
         </form>
+
+        <script>
+        
+        function toLocalISOString(date) {
+        const localDate = new Date(date - date.getTimezoneOffset() * 60000); //offset in milliseconds. Credit https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
+
+        // Optionally remove second/millisecond if needed
+        localDate.setSeconds(null);
+        localDate.setMilliseconds(null);
+        return localDate.toISOString().slice(0, -1);
+        }
+
+        window.addEventListener("load", () => {
+            $(".default-time").val(toLocalISOString(new Date()));
+        });
+        
+        </script>
     {% endblock %}
 {% endembed %}
 

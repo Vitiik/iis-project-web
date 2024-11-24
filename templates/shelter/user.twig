@@ -75,13 +75,15 @@
                           {% if zadost.schvalena == 0 %}
                             <p class="text-xs text-orange-400 reservation_status">Čeká na schválení</p>
                           {% else %}
-                            {% if zadost.zvire_zapujceno == 0 %}
-                                <p class="text-xs text-green-400 reservation_status">Schváleno</p>
+                            {% if zadost.schvalena == 2 %}
+                                <p class="text-xs text-red-400 reservation_status">Zamítnuto</p>
                             {% else %}
-                                {% if zadost.zvire_vraceno == 0 %}
-                                    <p class="text-xs text-blue-400 reservation_status">Zvíře půjčeno</p>
+                                {% if zadost.zvire_zapujceno == 0 %}
+                                    <p class="text-xs text-green-400 reservation_status">Schváleno</p>
                                 {% else %}
-                                    <p class="text-xs text-green-400 reservation_status">Dokončeno</p>
+                                    {% if zadost.zvire_vraceno == 0 %}
+                                        <p class="text-xs text-blue-400 reservation_status">Zvíře půjčeno</p>
+                                    {% endif %}
                                 {% endif %}
                             {% endif %}
                           {% endif %}
