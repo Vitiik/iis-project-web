@@ -22,7 +22,7 @@
         </button>
         {% endif %}
 
-        {% if is_admin(user) %}
+        {% if is_admin(user) or is_pecovatel(user) %}
         <button data-modal-target="manage-users-modal" data-modal-toggle="manage-users-modal" class="flex flex-row p-2 bg-gray-800 text-white rounded shadow items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
             <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
@@ -349,15 +349,18 @@
     {% block modal_body %}
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="users-tab" data-tabs-toggle="#users-tab-content" role="tablist">
+                {% if is_admin(user) %}
                 <li class="me-2" role="presentation">
                     <button class="inline-block p-4 border-b-2 rounded-t-lg" id="pomocnici-tab" data-tabs-target="#users" type="button" role="tab" aria-controls="profile" aria-selected="false">Uživatelé</button>
                 </li>
+                {% endif %}
                 <li class="me-2" role="presentation">
                     <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="pomocnici-tab" data-tabs-target="#pomocnici" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Dobrovolnící</button>
                 </li>
             </ul>
         </div>
         <div id="users-tab-content">
+            {% if is_admin(user) %}
             <div class="hidden" id="users" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -411,6 +414,7 @@
                     </table>
                 </div>
             </div>
+            {% endif %}
             <div class="hidden" id="pomocnici" role="tabpanel" aria-labelledby="dashboard-tab">   
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
