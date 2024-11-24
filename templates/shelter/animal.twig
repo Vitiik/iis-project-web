@@ -1,7 +1,6 @@
 {% extends "shelter/base.twig" %}
 
-{% block title %}{{product.name}}{% endblock %}
-{% block description %}{{product.description_small}}{% endblock %}
+{% block title %}{{zvire.plemeno}} - {{zvire.jmeno}}{% endblock %}
 
 {% block content %}
 
@@ -45,14 +44,14 @@
 
 <div class="flex flex-col w-full px-2 md:px-32 py-2 md:py-8 gap-16">
     <div class="flex flex-col md:flex-row w-full gap-8">
-        <h1 class="md:hidden product-detail-name">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
+        <h1 class="md:hidden">{{zvire.plemeno}} - {{zvire.jmeno}}</h1>
 
         <div class="flex flex-col items-center gap-8 md:w-[32rem]">
             <a href="javascript:;" onclick="openGallery()"><img class="shadow-md" width="450" src="{{obrazky[0].url_velka}}" alt=""></a>
             {% if is_pecovatel(user) == false %}
             <div class="flex flex-row flex-wrap gap-4 w-full justify-center" id="image-gallery">
                 {% for obrazek in obrazky %}
-                <a id="product-image-{{loop.index}}" href="{{obrazek.url_velka}}" data-pswp-width="1000" data-pswp-height="1000" target="_blank"> <img class="shadow-md" width="96" src="{{obrazek.url_mala}}" alt=""> </a>
+                <a id="animal-image-{{loop.index}}" href="{{obrazek.url_velka}}" data-pswp-width="1000" data-pswp-height="1000" target="_blank"> <img class="shadow-md" width="96" src="{{obrazek.url_mala}}" alt=""> </a>
                 {% endfor %}
             </div>
             {% else %}
